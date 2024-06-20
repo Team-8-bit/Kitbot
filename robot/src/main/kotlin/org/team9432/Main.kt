@@ -19,4 +19,4 @@ import org.team9432.lib.robot.RobotBase
  * Refactoring when renaming the object, it will get changed everywhere
  * including here.)
  */
-fun main() = RobotBase.startRobot { TODO("Insert robot reference!") }
+fun main() = RobotBase.startRobot { Robot }
