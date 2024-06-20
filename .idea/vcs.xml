@@ -3,7 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/dashboard" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/kitbottpmp" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib" vcs="Git" />
   </component>
 </project>

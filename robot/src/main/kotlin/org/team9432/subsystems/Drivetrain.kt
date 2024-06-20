@@ -46,7 +46,7 @@ object Drivetrain: KSubsystem() {
 
     }
     object Commands {
-
+        fun arcadeDrive(speed: Double, rotation: Double) = InstantCommand(Drivetrain) { Drivetrain.arcadeDrive(speed,rotation) }
         fun tankDrive(leftSpeed: Double, rightSpeed: Double) = InstantCommand(Drivetrain) { Drivetrain.tankDrive(leftSpeed,rightSpeed) }
     }
 
