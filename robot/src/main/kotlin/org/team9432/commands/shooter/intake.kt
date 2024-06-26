@@ -7,12 +7,13 @@ import org.team9432.subsystems.Shooter
 
 
 fun intake() = SequentialCommand(
-    Shooter.Commands.setTopSpeed(-0.5),
-    Shooter.Commands.setBottomSpeed(-0.5),
+    Shooter.Commands.setTopSpeed(-1700.0),
+    Shooter.Commands.setBottomSpeed(-1700.0),
     WaitCommand(0.1),
-    WaitUntilCommand(({ Shooter.getBottomVoltage() > 8 })),
+    WaitUntilCommand(({ Shooter.getBottomAmps() > 8 })),
     Shooter.Commands.setBottomSpeed(0.0),
-    Shooter.Commands.setTopSpeed(0.0)
+    Shooter.Commands.setTopSpeed(0.0),
+    Shooter.Commands.setNoteInRobot(true)
 
 
 

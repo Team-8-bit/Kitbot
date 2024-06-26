@@ -5,8 +5,10 @@ import org.team9432.commands.shooter.shootEnd
 import org.team9432.lib.commandbased.commands.SequentialCommand
 import org.team9432.lib.commandbased.commands.WaitCommand
 import org.team9432.subsystems.Drivetrain
+import org.team9432.subsystems.Shooter
 
 fun auto() = SequentialCommand(
+    Shooter.Commands.setNoteInRobot(true),
     shoot(),
     shootEnd(),
     WaitCommand(3.25),

@@ -4,8 +4,11 @@ import com.revrobotics.CANSparkBase
 import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import org.team9432.Controls
+import org.team9432.lib.commandbased.KCommandScheduler
 import org.team9432.lib.commandbased.KSubsystem
 import org.team9432.lib.commandbased.commands.InstantCommand
+import org.team9432.lib.commandbased.commands.SimpleCommand
 
 
 var driveTrain: DifferentialDrive? = null
@@ -17,7 +20,11 @@ object Drivetrain: KSubsystem() {
     private val rightTopDriveMotor = CANSparkMax(13, CANSparkLowLevel.MotorType.kBrushless)
     private val rightBottomDriveMotor = CANSparkMax(14, CANSparkLowLevel.MotorType.kBrushless)
 
+    var slow = false
+
     init {
+
+
         leftTopDriveMotor.follow(leftBottomDriveMotor)
         rightTopDriveMotor.follow(rightBottomDriveMotor)
 
@@ -42,9 +49,14 @@ object Drivetrain: KSubsystem() {
         driveTrain?.tankDrive(leftSpeed, rightSpeed)
     }
     fun arcadeDrive(speed: Double, rotation: Double){
-        driveTrain?.arcadeDrive(speed, rotation)
+        if(slow){
+            driveTrain?.arcadeDrive(speed*0.5, rotation*0.5)
+        }else{
+            driveTrain?.arcadeDrive(speed, rotation)
+        }
 
     }
+
     object Commands {
         fun arcadeDrive(speed: Double, rotation: Double) = InstantCommand(Drivetrain) { Drivetrain.arcadeDrive(speed,rotation) }
         fun tankDrive(leftSpeed: Double, rightSpeed: Double) = InstantCommand(Drivetrain) { Drivetrain.tankDrive(leftSpeed,rightSpeed) }
