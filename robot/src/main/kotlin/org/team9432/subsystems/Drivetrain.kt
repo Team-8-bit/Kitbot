@@ -4,16 +4,13 @@ import com.revrobotics.CANSparkBase
 import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
-import org.team9432.Controls
-import org.team9432.lib.commandbased.KCommandScheduler
 import org.team9432.lib.commandbased.KSubsystem
 import org.team9432.lib.commandbased.commands.InstantCommand
-import org.team9432.lib.commandbased.commands.SimpleCommand
 
 
 var driveTrain: DifferentialDrive? = null
 
-object Drivetrain: KSubsystem() {
+object Drivetrain : KSubsystem() {
     private val leftTopDriveMotor = CANSparkMax(12, CANSparkLowLevel.MotorType.kBrushless)
     private val leftBottomDriveMotor = CANSparkMax(11, CANSparkLowLevel.MotorType.kBrushless)
 
@@ -23,8 +20,6 @@ object Drivetrain: KSubsystem() {
     var slow = false
 
     init {
-
-
         leftTopDriveMotor.follow(leftBottomDriveMotor)
         rightTopDriveMotor.follow(rightBottomDriveMotor)
 
@@ -45,21 +40,25 @@ object Drivetrain: KSubsystem() {
         driveTrain?.isSafetyEnabled = false
     }
 
-    fun tankDrive(leftSpeed: Double, rightSpeed: Double){
+    fun tankDrive(leftSpeed: Double, rightSpeed: Double) {
         driveTrain?.tankDrive(leftSpeed, rightSpeed)
     }
-    fun arcadeDrive(speed: Double, rotation: Double){
-        if(slow){
-            driveTrain?.arcadeDrive(speed*0.5, rotation*0.5)
-        }else{
+
+    fun arcadeDrive(speed: Double, rotation: Double) {
+        if (slow) {
+            driveTrain?.arcadeDrive(speed * 0.5, rotation * 0.5)
+        } else {
             driveTrain?.arcadeDrive(speed, rotation)
         }
 
     }
 
     object Commands {
-        fun arcadeDrive(speed: Double, rotation: Double) = InstantCommand(Drivetrain) { Drivetrain.arcadeDrive(speed,rotation) }
-        fun tankDrive(leftSpeed: Double, rightSpeed: Double) = InstantCommand(Drivetrain) { Drivetrain.tankDrive(leftSpeed,rightSpeed) }
+        fun arcadeDrive(speed: Double, rotation: Double) =
+            InstantCommand(Drivetrain) { Drivetrain.arcadeDrive(speed, rotation) }
+
+        fun tankDrive(leftSpeed: Double, rightSpeed: Double) =
+            InstantCommand(Drivetrain) { Drivetrain.tankDrive(leftSpeed, rightSpeed) }
     }
 
 }

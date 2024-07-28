@@ -12,7 +12,7 @@ fun auto() = SequentialCommand(
     shoot(),
     shootEnd(),
     WaitCommand(3.25),
-    Drivetrain.Commands.tankDrive(0.5,0.5),
+    Drivetrain.Commands.tankDrive(0.5, 0.5),
     WaitCommand(1.5),
-    Drivetrain.Commands.tankDrive(0.0,0.0)
+    Drivetrain.Commands.tankDrive(0.0, 0.0)
 )

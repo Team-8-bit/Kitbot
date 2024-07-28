@@ -12,8 +12,4 @@ fun shootAmp() = SequentialCommand(
     Shooter.Commands.setBottomSpeed(0.0),
     Shooter.Commands.setTopSpeed(0.0),
     Shooter.Commands.setNoteInRobot(false)
-
-
-
-
 )
