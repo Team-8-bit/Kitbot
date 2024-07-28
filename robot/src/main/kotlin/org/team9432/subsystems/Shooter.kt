@@ -5,7 +5,13 @@ import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.controller.SimpleMotorFeedforward
+import edu.wpi.first.networktables.BooleanPublisher
+import edu.wpi.first.networktables.BooleanTopic
+import edu.wpi.first.networktables.NetworkTable
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import org.littletonrobotics.junction.Logger
+import org.team9432.Robot.table
+
 import org.team9432.lib.commandbased.KSubsystem
 import org.team9432.lib.commandbased.commands.InstantCommand
 
@@ -16,6 +22,8 @@ object Shooter: KSubsystem() {
     private val topPid = PIDController(0.0039231,0.0,0.0)
     private val bottomPid = PIDController(0.0039231,0.0,0.0)
     private var feedforward = SimpleMotorFeedforward(0.0, 0.0086634, 0.0038234)
+    val noteInRobotPublisher: BooleanPublisher = table.getBooleanTopic("Shooter/NoteInRobot").publish()
+
 
     init {
         motorBottom.setIdleMode(CANSparkBase.IdleMode.kCoast)
@@ -24,6 +32,11 @@ object Shooter: KSubsystem() {
         motorTop.setSmartCurrentLimit(60)
         motorTop.inverted = true
         motorBottom.inverted = true
+    }
+
+
+    override fun periodic() {
+        noteInRobotPublisher.set(note)
     }
 
     fun setBottomSpeed(speed: Double){
