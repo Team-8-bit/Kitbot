@@ -13,6 +13,6 @@ import org.team9432.subsystems.Shooter
 fun slowDrive(speed:() -> Double, rotation:() -> Double)  = SimpleCommand(
     requirements = setOf(Drivetrain),
     execute = {
-        Drivetrain.arcadeDrive(speed.invoke() * 0.75,rotation.invoke() * 0.75)
+        Drivetrain.arcadeDrive(speed.invoke() * 0.5,rotation.invoke() * 0.5)
     }
 )
