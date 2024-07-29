@@ -3,7 +3,13 @@ package org.team9432.subsystems
 import com.revrobotics.CANSparkBase
 import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds
+import edu.wpi.first.math.util.Units
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import org.littletonrobotics.junction.Logger
+import org.team9432.Robot.table
 import org.team9432.lib.commandbased.KSubsystem
 import org.team9432.lib.commandbased.commands.InstantCommand
 
@@ -17,7 +23,6 @@ object Drivetrain : KSubsystem() {
     private val rightTopDriveMotor = CANSparkMax(13, CANSparkLowLevel.MotorType.kBrushless)
     private val rightBottomDriveMotor = CANSparkMax(14, CANSparkLowLevel.MotorType.kBrushless)
 
-    var slow = false
 
     init {
         leftTopDriveMotor.follow(leftBottomDriveMotor)
@@ -45,11 +50,11 @@ object Drivetrain : KSubsystem() {
     }
 
     fun arcadeDrive(speed: Double, rotation: Double) {
-        if (slow) {
-            driveTrain?.arcadeDrive(speed * 0.5, rotation * 0.5)
-        } else {
-            driveTrain?.arcadeDrive(speed, rotation)
-        }
+        driveTrain?.arcadeDrive(speed, rotation, true)
+    }
+
+    override fun periodic() {
+        super.periodic()
 
     }
 

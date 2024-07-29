@@ -12,7 +12,7 @@ import org.team9432.subsystems.Drivetrain
 import org.team9432.subsystems.Shooter
 
 object Controls {
-    val controller = KXboxController(0, squareJoysticks = true)
+    private val controller = KXboxController(0, squareJoysticks = true)
 
     init {
         Drivetrain.defaultCommand = teleDrive({ controller.getRawAxis(1) * .75 }, { controller.getRawAxis(0) * .75 })

@@ -17,6 +17,8 @@ object Robot : LoggedCoroutineRobot() {
 
     override fun robotPeriodic() {
         KCommandScheduler.run()
+
+
     }
 
     override fun robotInit() {
