@@ -14,8 +14,10 @@ object Shooter : KSubsystem() {
     var note = false
     val motorBottom = CANSparkMax(21, CANSparkLowLevel.MotorType.kBrushless)
     val motorTop = CANSparkMax(22, CANSparkLowLevel.MotorType.kBrushless)
+    val motorSide = CANSparkMax(23, CANSparkLowLevel.MotorType.kBrushless)
     private val topPid = PIDController(0.0039231, 0.0, 0.0)
     private val bottomPid = PIDController(0.0039231, 0.0, 0.0)
+    private val sidePid = PIDController(0.0039231, 0.0, 0.0)
     private var feedforward = SimpleMotorFeedforward(0.0, 0.0086634, 0.0038234)
     private val shooterTable = table.getSubTable("Shooter")
     private val noteInRobotPublisher: BooleanPublisher = shooterTable.getBooleanTopic("NoteInRobot").publish()
@@ -32,16 +34,28 @@ object Shooter : KSubsystem() {
     private val topMotorAmpsPublisher =  topMotorTable.getDoubleTopic("Amps").publish()
     private val topMotorVoltsPublisher = topMotorTable.getDoubleTopic("Volts").publish()
 
+    private val sideMotorTable = shooterTable.getSubTable("sideMotor")
+    private val sideMotorRPMPublisher =   sideMotorTable.getDoubleTopic("RPM").publish()
+    private val sideMotorSetPointSpeedPublisher = sideMotorTable.getDoubleTopic("SetPoint Speed").publish()
+    private val sideMotorAmpsPublisher =  sideMotorTable.getDoubleTopic("Amps").publish()
+    private val sideMotorVoltsPublisher = sideMotorTable.getDoubleTopic("Volts").publish()
+
+
 
 
 
     init {
         motorBottom.setIdleMode(CANSparkBase.IdleMode.kCoast)
-        motorTop.setIdleMode(CANSparkBase.IdleMode.kCoast)
         motorBottom.setSmartCurrentLimit(60)
+        motorBottom.inverted = true
+        motorTop.setIdleMode(CANSparkBase.IdleMode.kCoast)
         motorTop.setSmartCurrentLimit(60)
         motorTop.inverted = true
-        motorBottom.inverted = true
+        motorSide.setIdleMode(CANSparkBase.IdleMode.kCoast)
+        motorSide.setSmartCurrentLimit(60)
+        motorSide.inverted = false
+        motorSide.follow(motorTop,false)
+
     }
 
 
@@ -57,6 +71,11 @@ object Shooter : KSubsystem() {
         topMotorSetPointSpeedPublisher.set(topPid.setpoint)
         topMotorAmpsPublisher.set(motorTop.outputCurrent)
         topMotorVoltsPublisher.set(motorTop.appliedOutput)
+
+        sideMotorRPMPublisher.set(motorSide.encoder.velocity)
+        sideMotorSetPointSpeedPublisher.set(sidePid.setpoint)
+        sideMotorAmpsPublisher.set(motorSide.outputCurrent)
+        sideMotorVoltsPublisher.set(motorSide.appliedOutput)
 
     }
 

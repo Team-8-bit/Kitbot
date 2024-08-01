@@ -47,9 +47,10 @@ object Drivetrain : KSubsystem() {
         driveTrain = DifferentialDrive(leftBottomDriveMotor, rightBottomDriveMotor)
         driveTrain?.isSafetyEnabled = false
 
-
+        
         driveTrainBuilder.table = drivetrainTable.getSubTable("DriveTrain")
         driveTrain!!.initSendable(driveTrainBuilder)
+
 
     }
 

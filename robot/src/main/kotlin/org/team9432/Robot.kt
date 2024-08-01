@@ -2,12 +2,9 @@ package org.team9432
 
 import edu.wpi.first.networktables.NetworkTable
 import edu.wpi.first.networktables.NetworkTableInstance
-import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import org.littletonrobotics.junction.LoggedCoroutineRobot
-import org.littletonrobotics.junction.Logger
-import org.littletonrobotics.junction.networktables.NT4Publisher
 import org.team9432.commands.auto.auto
 import org.team9432.commands.auto.auto2
 import org.team9432.lib.commandbased.KCommandScheduler
@@ -27,6 +24,8 @@ object Robot : LoggedCoroutineRobot() {
 
     }
 
+
+
     override fun robotInit() {
         super.robotInit()
 
@@ -36,11 +35,11 @@ object Robot : LoggedCoroutineRobot() {
         Drivetrain
 
 
-        Logger.recordMetadata("ProjectName", "MyProject")
-        //Logger.addDataReceiver(WPILOGWriter()) // Log to a USB stick ("/U/logs")
-        Logger.addDataReceiver(NT4Publisher()) // Publish data to NetworkTables
-        PowerDistribution(1, PowerDistribution.ModuleType.kRev) // Enables power distribution logging
-        Logger.start()
+//        Logger.recordMetadata("ProjectName", "MyProject")
+//        Logger.addDataReceiver(WPILOGWriter()) // Log to a USB stick ("/U/logs")
+//        Logger.addDataReceiver(NT4Publisher()) // Publish data to NetworkTables
+//        PowerDistribution(1, PowerDistribution.ModuleType.kRev) // Enables power distribution logging
+//        Logger.start()
 
         autoChooserBuilder.table = table.getSubTable("autoChooser")
         autoChooser.addOption("Auto 1", auto())
@@ -48,6 +47,7 @@ object Robot : LoggedCoroutineRobot() {
         autoChooser.setDefaultOption("Auto 1", auto())
         autoChooser.initSendable(autoChooserBuilder)
         autoChooserBuilder.startListeners()
+
 
     }
 
