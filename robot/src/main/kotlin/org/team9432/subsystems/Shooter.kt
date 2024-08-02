@@ -5,8 +5,7 @@ import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.controller.SimpleMotorFeedforward
-import edu.wpi.first.networktables.BooleanPublisher
-import org.team9432.Robot.table
+import org.littletonrobotics.junction.Logger
 import org.team9432.lib.commandbased.KSubsystem
 import org.team9432.lib.commandbased.commands.InstantCommand
 
@@ -19,30 +18,6 @@ object Shooter : KSubsystem() {
     private val bottomPid = PIDController(0.0039231, 0.0, 0.0)
     private val sidePid = PIDController(0.0039231, 0.0, 0.0)
     private var feedforward = SimpleMotorFeedforward(0.0, 0.0086634, 0.0038234)
-    private val shooterTable = table.getSubTable("Shooter")
-    private val noteInRobotPublisher: BooleanPublisher = shooterTable.getBooleanTopic("NoteInRobot").publish()
-
-    private val bottomMotorTable = shooterTable.getSubTable("BottomMotor")
-    private val bottomMotorRPMPublisher = bottomMotorTable.getDoubleTopic("RPM").publish()
-    private val bottomMotorSetPointSpeedPublisher = bottomMotorTable.getDoubleTopic("SetPoint Speed").publish()
-    private val bottomMotorAmpsPublisher = bottomMotorTable.getDoubleTopic("Amps").publish()
-    private val bottomMotorVoltsPublisher = bottomMotorTable.getDoubleTopic("Volts").publish()
-
-    private val topMotorTable = shooterTable.getSubTable("TopMotor")
-    private val topMotorRPMPublisher =   topMotorTable.getDoubleTopic("RPM").publish()
-    private val topMotorSetPointSpeedPublisher = topMotorTable.getDoubleTopic("SetPoint Speed").publish()
-    private val topMotorAmpsPublisher =  topMotorTable.getDoubleTopic("Amps").publish()
-    private val topMotorVoltsPublisher = topMotorTable.getDoubleTopic("Volts").publish()
-
-    private val sideMotorTable = shooterTable.getSubTable("sideMotor")
-    private val sideMotorRPMPublisher =   sideMotorTable.getDoubleTopic("RPM").publish()
-    private val sideMotorSetPointSpeedPublisher = sideMotorTable.getDoubleTopic("SetPoint Speed").publish()
-    private val sideMotorAmpsPublisher =  sideMotorTable.getDoubleTopic("Amps").publish()
-    private val sideMotorVoltsPublisher = sideMotorTable.getDoubleTopic("Volts").publish()
-
-
-
-
 
     init {
         motorBottom.setIdleMode(CANSparkBase.IdleMode.kCoast)
@@ -60,22 +35,23 @@ object Shooter : KSubsystem() {
 
 
     override fun periodic() {
-        noteInRobotPublisher.set(note)
+        Logger.recordOutput("Shooter/bottomMotor/RPM", motorBottom.encoder.velocity)
+        Logger.recordOutput("Shooter/bottomMotor/SetPoint Speed", bottomPid.setpoint)
+        Logger.recordOutput("Shooter/bottomMotor/Amps", motorBottom.outputCurrent)
+        Logger.recordOutput("Shooter/bottomMotor/Volts", motorBottom.appliedOutput)
 
-        bottomMotorRPMPublisher.set(motorBottom.encoder.velocity)
-        bottomMotorSetPointSpeedPublisher.set(bottomPid.setpoint)
-        bottomMotorAmpsPublisher.set(motorBottom.outputCurrent)
-        bottomMotorVoltsPublisher.set(motorBottom.appliedOutput)
+        Logger.recordOutput("Shooter/topMotor/RPM", motorTop.encoder.velocity)
+        Logger.recordOutput("Shooter/topMotor/SetPoint Speed", topPid.setpoint)
+        Logger.recordOutput("Shooter/topMotor/Amps", motorTop.outputCurrent)
+        Logger.recordOutput("Shooter/topMotor/Volts", motorTop.appliedOutput)
 
-        topMotorRPMPublisher.set(motorTop.encoder.velocity)
-        topMotorSetPointSpeedPublisher.set(topPid.setpoint)
-        topMotorAmpsPublisher.set(motorTop.outputCurrent)
-        topMotorVoltsPublisher.set(motorTop.appliedOutput)
+        Logger.recordOutput("Shooter/sideMotor/RPM", motorSide.encoder.velocity)
+        Logger.recordOutput("Shooter/sideMotor/SetPoint Speed", sidePid.setpoint)
+        Logger.recordOutput("Shooter/sideMotor/Amps", motorSide.outputCurrent)
+        Logger.recordOutput("Shooter/sideMotor/Volts", motorSide.appliedOutput)
 
-        sideMotorRPMPublisher.set(motorSide.encoder.velocity)
-        sideMotorSetPointSpeedPublisher.set(sidePid.setpoint)
-        sideMotorAmpsPublisher.set(motorSide.outputCurrent)
-        sideMotorVoltsPublisher.set(motorSide.appliedOutput)
+        Logger.recordOutput("Shooter/NoteInRobot", note)
+
 
     }
 

@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl
+import org.littletonrobotics.junction.Logger
 import org.team9432.Robot.table
 import org.team9432.lib.commandbased.KSubsystem
 import org.team9432.lib.commandbased.commands.InstantCommand
@@ -64,10 +65,17 @@ object Drivetrain : KSubsystem() {
 
     override fun periodic() {
         super.periodic()
-
-
         driveTrainBuilder.update()
 
+        Logger.recordOutput("Drivetrain/LeftBottomMotor/Amps", leftBottomDriveMotor.outputCurrent)
+        Logger.recordOutput("Drivetrain/LeftBottomMotor/Volts", leftBottomDriveMotor.appliedOutput)
+        Logger.recordOutput("Drivetrain/LeftBottomMotor/RPM", leftBottomDriveMotor.encoder.velocity)
+        Logger.recordOutput("Drivetrain/LeftBottomMotor/SetPoint Speed", leftBottomDriveMotor.get())
+
+        Logger.recordOutput("Drivetrain/RightBottomMotor/Amps", rightBottomDriveMotor.outputCurrent)
+        Logger.recordOutput("Drivetrain/RightBottomMotor/Volts", rightBottomDriveMotor.appliedOutput)
+        Logger.recordOutput("Drivetrain/RightBottomMotor/RPM", rightBottomDriveMotor.encoder.velocity)
+        Logger.recordOutput("Drivetrain/RightBottomMotor/SetPoint Speed", rightBottomDriveMotor.get())
 
     }
     object Commands {
