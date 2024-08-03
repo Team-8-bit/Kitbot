@@ -78,6 +78,14 @@ object Drivetrain : KSubsystem() {
         Logger.recordOutput("Drivetrain/RightBottomMotor/SetPoint Speed", rightBottomDriveMotor.get())
 
     }
+
+    fun setIdleMode(mode: CANSparkBase.IdleMode) {
+        leftTopDriveMotor.setIdleMode(mode)
+        leftBottomDriveMotor.setIdleMode(mode)
+        rightTopDriveMotor.setIdleMode(mode)
+        rightBottomDriveMotor.setIdleMode(mode)
+    }
+
     object Commands {
         fun arcadeDrive(speed: Double, rotation: Double) =
             InstantCommand(Drivetrain) { Drivetrain.arcadeDrive(speed, rotation) }

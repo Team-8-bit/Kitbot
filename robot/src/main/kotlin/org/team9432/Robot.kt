@@ -1,5 +1,6 @@
 package org.team9432
 
+import com.revrobotics.CANSparkBase
 import edu.wpi.first.networktables.NetworkTable
 import edu.wpi.first.networktables.NetworkTableInstance
 import edu.wpi.first.wpilibj.PowerDistribution
@@ -8,12 +9,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import org.littletonrobotics.junction.LoggedCoroutineRobot
 import org.littletonrobotics.junction.Logger
 import org.littletonrobotics.junction.networktables.NT4Publisher
-import org.littletonrobotics.junction.wpilog.WPILOGWriter
 import org.team9432.commands.auto.auto
 import org.team9432.commands.auto.auto2
 import org.team9432.lib.commandbased.KCommandScheduler
 import org.team9432.lib.commandbased.commands.SequentialCommand
 import org.team9432.subsystems.Drivetrain
+import org.team9432.subsystems.Drivetrain.setIdleMode
 import org.team9432.subsystems.Shooter
 
 
@@ -55,6 +56,16 @@ object Robot : LoggedCoroutineRobot() {
 
 
 
+    }
+
+    override fun disabledInit() {
+        super.disabledInit()
+        setIdleMode(CANSparkBase.IdleMode.kCoast)
+    }
+
+    override fun disabledExit() {
+        super.disabledExit()
+        setIdleMode(CANSparkBase.IdleMode.kBrake)
     }
 
     override fun autonomousInit() {

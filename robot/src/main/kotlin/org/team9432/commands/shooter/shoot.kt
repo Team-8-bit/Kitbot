@@ -6,5 +6,6 @@ import org.team9432.subsystems.Shooter
 
 fun shoot() = SequentialCommand(
     Shooter.Commands.setTopSpeed(9000.0),
+    Shooter.Commands.setSideSpeed(3750.0),
     WaitCommand(2.0),
 )

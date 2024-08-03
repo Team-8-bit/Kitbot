@@ -9,5 +9,6 @@ fun shootEnd() = SequentialCommand(
     WaitCommand(0.5),
     Shooter.Commands.setBottomSpeed(0.0),
     Shooter.Commands.setTopSpeed(0.0),
+    Shooter.Commands.setSideSpeed(0.0),
     Shooter.Commands.setNoteInRobot(false)
 )

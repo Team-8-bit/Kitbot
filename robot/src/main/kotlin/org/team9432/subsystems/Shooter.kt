@@ -29,7 +29,7 @@ object Shooter : KSubsystem() {
         motorSide.setIdleMode(CANSparkBase.IdleMode.kCoast)
         motorSide.setSmartCurrentLimit(60)
         motorSide.inverted = false
-        motorSide.follow(motorTop,false)
+        motorSide.follow(motorTop,true)
 
     }
 
@@ -63,10 +63,15 @@ object Shooter : KSubsystem() {
         motorTop.setVoltage(topPid.calculate(speed) + feedforward.calculate(topPid.setpoint))
     }
 
+    fun setSideSpeed(speed: Double) {
+        motorSide.setVoltage(sidePid.calculate(speed) + feedforward.calculate(sidePid.setpoint))
+    }
+
     object Commands {
         fun setNoteInRobot(boolean: Boolean) = InstantCommand(Shooter) { note = boolean }
         fun setTopSpeed(speed: Double) = InstantCommand(Shooter) { Shooter.setTopSpeed(speed) }
         fun setBottomSpeed(speed: Double) = InstantCommand(Shooter) { Shooter.setBottomSpeed(speed) }
+        fun setSideSpeed(speed: Double) = InstantCommand(Shooter) { Shooter.setSideSpeed(speed) }
     }
 
 }
