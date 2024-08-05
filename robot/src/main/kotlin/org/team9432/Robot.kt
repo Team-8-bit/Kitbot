@@ -3,6 +3,8 @@ package org.team9432
 import com.revrobotics.CANSparkBase
 import edu.wpi.first.networktables.NetworkTable
 import edu.wpi.first.networktables.NetworkTableInstance
+import edu.wpi.first.wpilibj.DataLogManager
+import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
@@ -25,6 +27,7 @@ object Robot : LoggedCoroutineRobot() {
 
     override fun robotPeriodic() {
         KCommandScheduler.run()
+
         autoChooserBuilder.update()
 
     }
@@ -34,7 +37,9 @@ object Robot : LoggedCoroutineRobot() {
     override fun robotInit() {
         super.robotInit()
 
-
+        DataLogManager.start()
+        DriverStation.startDataLog(DataLogManager.getLog())
+        DataLogManager.logNetworkTables(true)
 
         Shooter
         Drivetrain
