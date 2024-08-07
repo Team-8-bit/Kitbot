@@ -1,32 +1,24 @@
-package org.team9432.subsystems
+package org.team9432.resources
 
 import com.revrobotics.CANSparkBase
 import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl
-import org.littletonrobotics.junction.Logger
-import org.team9432.Robot.table
-import org.team9432.lib.commandbased.KSubsystem
-import org.team9432.lib.commandbased.commands.InstantCommand
+import org.team9432.lib.coroutines.CoroutineRobot
+import org.team9432.lib.doglog.Logger
+import org.team9432.lib.resource.Resource
 
 
 var driveTrain: DifferentialDrive? = null
 
 
-object Drivetrain : KSubsystem() {
+object Drivetrain : Resource("Drivetrain"){
 
     private val leftTopDriveMotor = CANSparkMax(12, CANSparkLowLevel.MotorType.kBrushless)
     private val leftBottomDriveMotor = CANSparkMax(11, CANSparkLowLevel.MotorType.kBrushless)
 
     private val rightTopDriveMotor = CANSparkMax(13, CANSparkLowLevel.MotorType.kBrushless)
     private val rightBottomDriveMotor = CANSparkMax(14, CANSparkLowLevel.MotorType.kBrushless)
-
-    private val drivetrainTable = table.getSubTable("Drivetrain")
-
-
-    private val driveTrainBuilder = SendableBuilderImpl()
-
 
     init {
         leftTopDriveMotor.follow(leftBottomDriveMotor)
@@ -48,11 +40,7 @@ object Drivetrain : KSubsystem() {
         driveTrain = DifferentialDrive(leftBottomDriveMotor, rightBottomDriveMotor)
         driveTrain?.isSafetyEnabled = false
 
-        
-        driveTrainBuilder.table = drivetrainTable.getSubTable("DriveTrain")
-        driveTrain!!.initSendable(driveTrainBuilder)
-
-
+        CoroutineRobot.startPeriodic { log() }
     }
 
     fun tankDrive(leftSpeed: Double, rightSpeed: Double) {
@@ -63,20 +51,17 @@ object Drivetrain : KSubsystem() {
         driveTrain?.arcadeDrive(speed, rotation, true)
     }
 
-    override fun periodic() {
-        super.periodic()
-        driveTrainBuilder.update()
 
-        Logger.recordOutput("Drivetrain/LeftBottomMotor/Amps", leftBottomDriveMotor.outputCurrent)
-        Logger.recordOutput("Drivetrain/LeftBottomMotor/Volts", leftBottomDriveMotor.appliedOutput)
-        Logger.recordOutput("Drivetrain/LeftBottomMotor/RPM", leftBottomDriveMotor.encoder.velocity)
-        Logger.recordOutput("Drivetrain/LeftBottomMotor/SetPoint Speed", leftBottomDriveMotor.get())
+    fun log() {
+        Logger.log("Drivetrain/LeftBottomMotor/Amps", leftBottomDriveMotor.outputCurrent)
+        Logger.log("Drivetrain/LeftBottomMotor/Volts", leftBottomDriveMotor.appliedOutput)
+        Logger.log("Drivetrain/LeftBottomMotor/RPM", leftBottomDriveMotor.encoder.velocity)
+        Logger.log("Drivetrain/LeftBottomMotor/SetPoint Speed", leftBottomDriveMotor.get())
 
-        Logger.recordOutput("Drivetrain/RightBottomMotor/Amps", rightBottomDriveMotor.outputCurrent)
-        Logger.recordOutput("Drivetrain/RightBottomMotor/Volts", rightBottomDriveMotor.appliedOutput)
-        Logger.recordOutput("Drivetrain/RightBottomMotor/RPM", rightBottomDriveMotor.encoder.velocity)
-        Logger.recordOutput("Drivetrain/RightBottomMotor/SetPoint Speed", rightBottomDriveMotor.get())
-
+        Logger.log("Drivetrain/RightBottomMotor/Amps", rightBottomDriveMotor.outputCurrent)
+        Logger.log("Drivetrain/RightBottomMotor/Volts", rightBottomDriveMotor.appliedOutput)
+        Logger.log("Drivetrain/RightBottomMotor/RPM", rightBottomDriveMotor.encoder.velocity)
+        Logger.log("Drivetrain/RightBottomMotor/SetPoint Speed", rightBottomDriveMotor.get())
     }
 
     fun setIdleMode(mode: CANSparkBase.IdleMode) {
@@ -86,12 +71,5 @@ object Drivetrain : KSubsystem() {
         rightBottomDriveMotor.setIdleMode(mode)
     }
 
-    object Commands {
-        fun arcadeDrive(speed: Double, rotation: Double) =
-            InstantCommand(Drivetrain) { Drivetrain.arcadeDrive(speed, rotation) }
-
-        fun tankDrive(leftSpeed: Double, rightSpeed: Double) =
-            InstantCommand(Drivetrain) { Drivetrain.tankDrive(leftSpeed, rightSpeed) }
-    }
 
 }
