@@ -5,9 +5,7 @@ import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import org.team9432.lib.coroutines.CoroutineRobot
-import org.team9432.lib.coroutines.robotPeriodic
 import org.team9432.lib.doglog.Logger
-import org.team9432.lib.resource.Action
 import org.team9432.lib.resource.Resource
 import org.team9432.oi.Buttons
 

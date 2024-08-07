@@ -1,24 +1,17 @@
 @file:JvmName("Main") // set the compiled Java class name to "Main" rather than "MainKt"
 package org.team9432
 
+import com.revrobotics.CANSparkBase
 import edu.wpi.first.wpilibj.RobotBase
 import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.doglog.Logger
-
 import org.team9432.oi.Buttons
-
 import org.team9432.resources.Drivetrain
 import org.team9432.resources.Loader
 import org.team9432.resources.Shooter
 
 object Robot : CoroutineRobot() {
-//    val table: NetworkTable by lazy { NetworkTableInstance.getDefault().getTable("Elastic") }
-//    private val autoChooserBuilder = SendableBuilderImpl()
-//    private val autoChooser = SendableChooser<SequentialCommand>()
-//
-//    override fun robotPeriodic() {
-//        autoChooserBuilder.update()
-//    }
+
     override suspend fun periodic() {
         super.periodic()
     }
@@ -31,24 +24,21 @@ object Robot : CoroutineRobot() {
         Drivetrain
 
         Buttons.bind()
+    }
 
+    override suspend fun disabled() {
+        super.disabled()
+        Drivetrain.setIdleMode(CANSparkBase.IdleMode.kCoast)
+    }
 
-//        DataLogManager.start()
-//        DriverStation.startDataLog(DataLogManager.getLog())
-//        DataLogManager.logNetworkTables(true)
-//        Logger.recordMetadata("ProjectName", "MyProject")
-//        //Logger.addDataReceiver(WPILOGWriter()) // Log to a USB stick ("/U/logs")
-//        Logger.addDataReceiver(NT4Publisher()) // Publish data to NetworkTables
-//        PowerDistribution(1, PowerDistribution.ModuleType.kRev) // Enables power distribution logging
-//        Logger.start()
+    override suspend fun autonomous() {
+        super.autonomous()
+        Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
+    }
 
-//        autoChooserBuilder.table = table.getSubTable("autoChooser")
-//        autoChooser.addOption("Auto 1", auto())
-//        autoChooser.addOption("Auto 2", auto2())
-//        autoChooser.setDefaultOption("Auto 1", auto())
-//        autoChooser.initSendable(autoChooserBuilder)
-//        autoChooserBuilder.startListeners()
-
+    override suspend fun teleop() {
+        super.teleop()
+        Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
     }
 
 
