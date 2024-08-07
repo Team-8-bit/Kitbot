@@ -3,6 +3,8 @@ package org.team9432
 
 import com.revrobotics.CANSparkBase
 import edu.wpi.first.wpilibj.RobotBase
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.doglog.Logger
 import org.team9432.oi.Buttons
@@ -11,19 +13,23 @@ import org.team9432.resources.Loader
 import org.team9432.resources.Shooter
 
 object Robot : CoroutineRobot() {
-
+    val autoChooser = SendableChooser<Int>()
     override suspend fun periodic() {
         super.periodic()
     }
     override suspend fun init() {
         Logger.configureDevelopmentDefaults()
 
-
         Shooter
         Loader
         Drivetrain
 
         Buttons.bind()
+        autoChooser.addOption("Shoot Only",1)
+        autoChooser.addOption("Shoot And Drive",2)
+        autoChooser.setDefaultOption("Shoot Only",1)
+
+        SmartDashboard.putData(autoChooser)
     }
 
     override suspend fun disabled() {
@@ -34,6 +40,10 @@ object Robot : CoroutineRobot() {
     override suspend fun autonomous() {
         super.autonomous()
         Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
+        when(autoChooser.selected){
+            1 -> Auto.OnlyShoot()
+            2 -> Auto.ShootAndDrive()
+        }
     }
 
     override suspend fun teleop() {

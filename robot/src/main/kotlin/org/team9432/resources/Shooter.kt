@@ -21,10 +21,10 @@ object Shooter : Resource("Shooter") {
     private val sidePid = PIDController(0.0039231, 0.0, 0.0)
     private var feedforward = SimpleMotorFeedforward(0.0, 0.0086634, 0.0038234)//TODO Tune feedforward
 
-    enum class State(val getSpeed: () -> Double) {
-        SHOOT({ 5000.0 }),
-        INTAKE({ -5000.0 }),
-        IDLE({ 0.0 });
+    enum class State(val getSpeed: () -> DoubleArray) {
+        SHOOT({ doubleArrayOf(3750.0,9000.0) }),
+        INTAKE({ doubleArrayOf(-3750.0,-3750.0) }),
+        IDLE({ doubleArrayOf(0.0,0.0) });
     }
 
     init {
@@ -41,8 +41,8 @@ object Shooter : Resource("Shooter") {
     }
 
     private fun trackState() {
-        motorTop.setVoltage(topPid.calculate(state.getSpeed()) + feedforward.calculate(topPid.setpoint))
-        motorSide.setVoltage(sidePid.calculate(state.getSpeed()) + feedforward.calculate(sidePid.setpoint))
+        motorTop.setVoltage(topPid.calculate(state.getSpeed()[0]) + feedforward.calculate(topPid.setpoint))
+        motorSide.setVoltage(sidePid.calculate(state.getSpeed()[1]) + feedforward.calculate(sidePid.setpoint))
     }
 
     fun log() {

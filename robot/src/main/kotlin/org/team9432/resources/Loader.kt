@@ -19,8 +19,8 @@ object Loader: Resource("Loader") {
 
 
     enum class State(val getSpeed: () -> Double) {
-        LOAD({ -5000.0 }),
-        INTAKE({ 5000.0 }),
+        LOAD({ 9000.0 }),
+        INTAKE({ -3750.0 }),
         IDLE({ 0.0 });
     }
 
