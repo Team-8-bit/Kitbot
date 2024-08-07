@@ -1,15 +1,12 @@
 @file:JvmName("Main") // set the compiled Java class name to "Main" rather than "MainKt"
 package org.team9432
 
-import edu.wpi.first.networktables.NetworkTable
-import edu.wpi.first.networktables.NetworkTableInstance
 import edu.wpi.first.wpilibj.RobotBase
-import edu.wpi.first.wpilibj.XboxController
 import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.doglog.Logger
 
 import org.team9432.oi.Buttons
-import org.team9432.oi.Buttons.controller
+
 import org.team9432.resources.Drivetrain
 import org.team9432.resources.Loader
 import org.team9432.resources.Shooter
@@ -24,8 +21,6 @@ object Robot : CoroutineRobot() {
 //    }
     override suspend fun periodic() {
         super.periodic()
-        //println( controller.getRawButton(2))
-        //println("is connected "+controller.isConnected())
     }
     override suspend fun init() {
         Logger.configureDevelopmentDefaults()
