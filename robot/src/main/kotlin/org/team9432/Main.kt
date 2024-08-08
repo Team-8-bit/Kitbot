@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkBase
 import edu.wpi.first.wpilibj.RobotBase
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import org.team9432.lib.LibraryState.mode
 import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.doglog.Logger
 import org.team9432.oi.Buttons
@@ -41,8 +42,8 @@ object Robot : CoroutineRobot() {
         super.autonomous()
         Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
         when(autoChooser.selected){
-            1 -> Auto.OnlyShoot()
-            2 -> Auto.ShootAndDrive()
+            1 -> Auto.onlyShoot()
+            2 -> Auto.shootAndDrive()
         }
     }
 

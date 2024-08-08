@@ -21,9 +21,7 @@ object Drivetrain : Resource("Drivetrain"){
     private val rightTopDriveMotor = CANSparkMax(13, CANSparkLowLevel.MotorType.kBrushless)
     private val rightBottomDriveMotor = CANSparkMax(14, CANSparkLowLevel.MotorType.kBrushless)
 
-    fun periodic() {
-        arcadeDrive(Buttons.getJoystickDrive(), Buttons.getJoystickRotation())
-    }
+
 
     init {
         leftTopDriveMotor.follow(leftBottomDriveMotor)
@@ -45,7 +43,7 @@ object Drivetrain : Resource("Drivetrain"){
         driveTrain = DifferentialDrive(leftBottomDriveMotor, rightBottomDriveMotor)
         driveTrain?.isSafetyEnabled = false
 
-        CoroutineRobot.startPeriodic { log(); periodic() }
+        CoroutineRobot.startPeriodic { log(); }
     }
 
     fun tankDrive(leftSpeed: Double, rightSpeed: Double) {
