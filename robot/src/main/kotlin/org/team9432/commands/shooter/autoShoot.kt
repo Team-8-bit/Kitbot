@@ -5,8 +5,8 @@ import org.team9432.lib.commandbased.commands.WaitCommand
 import org.team9432.subsystems.Shooter
 
 fun autoShoot() = SequentialCommand(
-    Shooter.Commands.setTopSpeed(9000.0),
-    Shooter.Commands.setSideSpeed(3750.0),//TODO Tune speeds
+    Shooter.Commands.setTopSpeed(6500.0),
+    Shooter.Commands.setSideSpeed(6500.0),//TODO Tune speeds
     WaitCommand(2.5),
     Shooter.Commands.setBottomSpeed(2500.0),
     WaitCommand(0.5),

@@ -10,7 +10,9 @@ fun auto2() = SequentialCommand(
     Shooter.Commands.setNoteInRobot(true),
     autoShoot(),
     WaitCommand(3.25),
-    Drivetrain.Commands.tankDrive(0.5, 0.5),
-    WaitCommand(1.5),
+    Drivetrain.Commands.tankDrive(0.0, 0.5),
+    WaitCommand(1.0),
+    Drivetrain.Commands.tankDrive(0.5,0.5),
+    WaitCommand(1.75),
     Drivetrain.Commands.tankDrive(0.0, 0.0)
 )

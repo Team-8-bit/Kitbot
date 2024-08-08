@@ -16,8 +16,12 @@ object Controls {
         Drivetrain.defaultCommand = teleDrive({ controller.getRawAxis(1) * .75 }, { controller.getRawAxis(0) * .75 })
         controller.leftBumper.whileTrue(slowDrive({ controller.getRawAxis(1) }, { controller.getRawAxis(0) }))
 
-        controller.b.onTrue(intake())
+        controller.b
+            .onTrue(intake())
+            .onFalse(stop())
         controller.x.onTrue(shootAmp())
-        controller.y.whileTrue(shoot())
+        controller.a
+            .onTrue(shoot())
+            .onFalse(shootEnd())
     }
 }
