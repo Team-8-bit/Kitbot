@@ -18,6 +18,7 @@ import org.team9432.lib.commandbased.KCommandScheduler
 import org.team9432.lib.commandbased.commands.SequentialCommand
 import org.team9432.subsystems.Drivetrain
 import org.team9432.subsystems.Drivetrain.setIdleMode
+import org.team9432.subsystems.LEDS
 import org.team9432.subsystems.Shooter
 
 
@@ -42,6 +43,8 @@ object Robot : LoggedCoroutineRobot() {
 
         Shooter
         Drivetrain
+
+        LEDS
 
 
         Logger.recordMetadata("ProjectName", "MyProject")

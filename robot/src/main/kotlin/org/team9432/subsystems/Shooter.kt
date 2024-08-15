@@ -19,6 +19,7 @@ object Shooter : KSubsystem() {
     private val sidePid = PIDController(0.0039231, 0.0, 0.0)
     private var feedforward = SimpleMotorFeedforward(0.0, 0.0086634, 0.0038234)//TODO Tune feedforward
 
+
     init {
         motorBottom.setIdleMode(CANSparkBase.IdleMode.kCoast)
         motorBottom.setSmartCurrentLimit(60)
