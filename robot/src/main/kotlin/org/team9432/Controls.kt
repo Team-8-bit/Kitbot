@@ -23,5 +23,8 @@ object Controls {
         controller.a
             .onTrue(shoot())
             .onFalse(shootEnd())
+        controller.y
+            .onTrue(spin())
+            .onFalse(stop())
     }
 }
