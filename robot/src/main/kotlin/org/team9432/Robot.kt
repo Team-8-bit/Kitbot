@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import org.littletonrobotics.junction.LoggedCoroutineRobot
 import org.littletonrobotics.junction.Logger
 import org.littletonrobotics.junction.networktables.NT4Publisher
@@ -21,14 +22,12 @@ import org.team9432.subsystems.Shooter
 
 
 object Robot : LoggedCoroutineRobot() {
-    val table: NetworkTable by lazy { NetworkTableInstance.getDefault().getTable("Elastic") }
-    private val autoChooserBuilder = SendableBuilderImpl()
+    val table: NetworkTable by lazy { NetworkTableInstance.getDefault().getTable("Logging") }
     private val autoChooser = SendableChooser<SequentialCommand>()
 
     override fun robotPeriodic() {
         KCommandScheduler.run()
 
-        autoChooserBuilder.update()
 
     }
 
@@ -51,12 +50,10 @@ object Robot : LoggedCoroutineRobot() {
         PowerDistribution(1, PowerDistribution.ModuleType.kRev) // Enables power distribution logging
         Logger.start()
 
-        autoChooserBuilder.table = table.getSubTable("autoChooser")
         autoChooser.addOption("Auto 1", auto())
         autoChooser.addOption("Auto 2", auto2())
         autoChooser.setDefaultOption("Auto 1", auto())
-        autoChooser.initSendable(autoChooserBuilder)
-        autoChooserBuilder.startListeners()
+        SmartDashboard.putData(autoChooser)
 
 
 

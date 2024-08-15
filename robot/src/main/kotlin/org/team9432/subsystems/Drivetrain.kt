@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import org.littletonrobotics.junction.Logger
 import org.team9432.Robot.table
 import org.team9432.lib.commandbased.KSubsystem
@@ -21,11 +22,6 @@ object Drivetrain : KSubsystem() {
 
     private val rightTopDriveMotor = CANSparkMax(13, CANSparkLowLevel.MotorType.kBrushless)
     private val rightBottomDriveMotor = CANSparkMax(14, CANSparkLowLevel.MotorType.kBrushless)
-
-    private val drivetrainTable = table.getSubTable("Drivetrain")
-
-
-    private val driveTrainBuilder = SendableBuilderImpl()
 
 
     init {
@@ -48,9 +44,7 @@ object Drivetrain : KSubsystem() {
         driveTrain = DifferentialDrive(leftBottomDriveMotor, rightBottomDriveMotor)
         driveTrain?.isSafetyEnabled = false
 
-        
-        driveTrainBuilder.table = drivetrainTable.getSubTable("DriveTrain")
-        driveTrain!!.initSendable(driveTrainBuilder)
+        SmartDashboard.putData(driveTrain)
 
 
     }
@@ -65,7 +59,6 @@ object Drivetrain : KSubsystem() {
 
     override fun periodic() {
         super.periodic()
-        driveTrainBuilder.update()
 
         Logger.recordOutput("Drivetrain/LeftBottomMotor/Amps", leftBottomDriveMotor.outputCurrent)
         Logger.recordOutput("Drivetrain/LeftBottomMotor/Volts", leftBottomDriveMotor.appliedOutput)

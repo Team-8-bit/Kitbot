@@ -13,7 +13,7 @@ object Controls {
     private val controller = KXboxController(0, squareJoysticks = true)
 
     init {
-        Drivetrain.defaultCommand = teleDrive({ controller.getRawAxis(1) * .75 }, { controller.getRawAxis(0) * .75 })
+        Drivetrain.defaultCommand = teleDrive({ controller.getRawAxis(1) * .75 }, { (controller.getRawAxis(0) * .75) - controller.leftTriggerAxis + controller.rightTriggerAxis })
         controller.leftBumper.whileTrue(slowDrive({ controller.getRawAxis(1) }, { controller.getRawAxis(0) }))
 
         controller.b
