@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.controller.SimpleMotorFeedforward
+import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.resource.Resource
 import org.team9432.lib.doglog.Logger
@@ -19,7 +20,7 @@ object Loader: Resource("Loader") {
 
 
     enum class State(val getSpeed: () -> Double) {
-        LOAD({ 9000.0 }),
+        LOAD({ 3750.0 }),
         INTAKE({ -3750.0 }),
         IDLE({ 0.0 });
     }
@@ -29,11 +30,11 @@ object Loader: Resource("Loader") {
         motorBottom.setSmartCurrentLimit(60)
         motorBottom.inverted = true
 
-        CoroutineRobot.startPeriodic { trackState(); log() }
+        RobotPeriodicManager.startPeriodic { trackState(); log() }
     }
 
     private fun trackState() {
-        motorBottom.setVoltage(bottomPid.calculate(state.getSpeed()) + feedforward.calculate(bottomPid.setpoint))
+        motorBottom.setVoltage(bottomPid.calculate(state.getSpeed()) + feedforward.calculate(bottomPid.setpoint)/2)
     }
 
     private fun log() {

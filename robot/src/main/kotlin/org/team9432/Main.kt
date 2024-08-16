@@ -5,16 +5,15 @@ import com.revrobotics.CANSparkBase
 import edu.wpi.first.wpilibj.RobotBase
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
-import org.team9432.lib.LibraryState.mode
 import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.doglog.Logger
-import org.team9432.oi.Buttons
+import org.team9432.oi.Controls
 import org.team9432.resources.Drivetrain
 import org.team9432.resources.Loader
 import org.team9432.resources.Shooter
 
-object Robot : CoroutineRobot() {
-    val autoChooser = SendableChooser<Int>()
+object Robot : CoroutineRobot(useActionManager = false) {
+    private val autoChooser = SendableChooser<Int>()
     override suspend fun periodic() {
         super.periodic()
     }
@@ -25,7 +24,9 @@ object Robot : CoroutineRobot() {
         Loader
         Drivetrain
 
-        Buttons.bind()
+        LEDs
+
+        Controls.bind()
         autoChooser.addOption("Shoot Only",1)
         autoChooser.addOption("Shoot And Drive",2)
         autoChooser.setDefaultOption("Shoot Only",1)
@@ -36,14 +37,15 @@ object Robot : CoroutineRobot() {
     override suspend fun disabled() {
         super.disabled()
         Drivetrain.setIdleMode(CANSparkBase.IdleMode.kCoast)
+        RobotController.resetRequests()
     }
 
     override suspend fun autonomous() {
         super.autonomous()
         Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
         when(autoChooser.selected){
-            1 -> Auto.onlyShoot()
-            2 -> Auto.shootAndDrive()
+            1 -> RobotController.setAction { Auto.onlyShoot() }
+            2 -> RobotController.setAction { Auto.shootAndDrive() }
         }
     }
 
