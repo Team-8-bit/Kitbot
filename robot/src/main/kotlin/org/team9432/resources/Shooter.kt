@@ -6,12 +6,11 @@ import com.revrobotics.CANSparkMax
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.controller.SimpleMotorFeedforward
 import org.team9432.lib.RobotPeriodicManager
-import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.doglog.Logger
 import org.team9432.lib.resource.Resource
 
 object Shooter : Resource("Shooter") {
-    private var state = State.IDLE
+    var shooterState = State.IDLE
 
     var note = false
 
@@ -43,8 +42,8 @@ object Shooter : Resource("Shooter") {
     }
 
     private fun trackState() {
-        motorTop.setVoltage(topPid.calculate(state.getSpeed()[0]) + feedforward.calculate(topPid.setpoint)/2)
-        motorSide.setVoltage(sidePid.calculate(state.getSpeed()[1]) + feedforward.calculate(sidePid.setpoint)/2)
+        motorTop.setVoltage(topPid.calculate(shooterState.getSpeed()[0]) + feedforward.calculate(topPid.setpoint)/2)
+        motorSide.setVoltage(sidePid.calculate(shooterState.getSpeed()[1]) + feedforward.calculate(sidePid.setpoint)/2)
     }
 
     fun log() {
@@ -61,11 +60,11 @@ object Shooter : Resource("Shooter") {
 
         Logger.log("Shooter/NoteInRobot", note)
 
-        Logger.log("Shooter/State", state)
+        Logger.log("Shooter/State", shooterState)
     }
 
     fun setState(state: State) {
-        this.state = state
+        this.shooterState = state
     }
 
 }

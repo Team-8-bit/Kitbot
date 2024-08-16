@@ -6,12 +6,11 @@ import com.revrobotics.CANSparkMax
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.controller.SimpleMotorFeedforward
 import org.team9432.lib.RobotPeriodicManager
-import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.resource.Resource
 import org.team9432.lib.doglog.Logger
 
 object Loader: Resource("Loader") {
-    private var state = State.IDLE
+    var loaderState = State.IDLE
 
     val motorBottom = CANSparkMax(21, CANSparkLowLevel.MotorType.kBrushless)
 
@@ -34,7 +33,7 @@ object Loader: Resource("Loader") {
     }
 
     private fun trackState() {
-        motorBottom.setVoltage(bottomPid.calculate(state.getSpeed()) + feedforward.calculate(bottomPid.setpoint)/2)
+        motorBottom.setVoltage(bottomPid.calculate(loaderState.getSpeed()) + feedforward.calculate(bottomPid.setpoint)/2)
     }
 
     private fun log() {
@@ -43,10 +42,10 @@ object Loader: Resource("Loader") {
         Logger.log("Loader/bottomMotor/Amps", motorBottom.outputCurrent)
         Logger.log("Loader/bottomMotor/Volts", motorBottom.appliedOutput)
 
-        Logger.log("Loader/State", state)
+        Logger.log("Loader/State", loaderState)
     }
 
     fun setState(state: State) {
-        this.state = state
+        this.loaderState = state
     }
 }

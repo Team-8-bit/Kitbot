@@ -11,10 +11,7 @@ import org.team9432.lib.led.animations.chaseColors
 import org.team9432.lib.led.animations.pulse
 import org.team9432.lib.led.animations.strobe
 import org.team9432.lib.led.color.Color
-import org.team9432.lib.led.color.predefined.Blue
-import org.team9432.lib.led.color.predefined.RainbowColors
-import org.team9432.lib.led.color.predefined.RainbowStripesColors
-import org.team9432.lib.led.color.predefined.Red
+import org.team9432.lib.led.color.predefined.*
 import org.team9432.lib.led.management.AnimationBindScope
 import org.team9432.lib.led.management.AnimationManager
 import org.team9432.lib.led.management.Section
@@ -45,7 +42,9 @@ object LEDs {
             }.ElseIf({ Robot.mode == CoroutineRobot.Mode.AUTONOMOUS }) {
                 setAnimation(leds.strobe(Color.Red, period = 0.5.seconds))
             }.ElseIf({ Robot.mode == CoroutineRobot.Mode.TELEOP }) {
-                If ({Shooter.note}) {
+                If({ Shooter.shooterState == Shooter.State.INTAKE }) {
+                    setAnimation(leds.pulse(Color.Green,cooldown = 0.seconds,timePerStep = 0.01.seconds))
+                }.ElseIf ({Shooter.note}) {
                     setAnimation(leds.breath(Color.RainbowColors, colorDuration = 0.1.seconds, speed = 10))
                 }.Else {
                     If({ Robot.alliance == DriverStation.Alliance.Red }) {
