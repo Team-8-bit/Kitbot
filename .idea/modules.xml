@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard-app/dashboard.dashboard-app.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard-app/dashboard.dashboard-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard-app/dashboard.dashboard-app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard-app/dashboard.dashboard-app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard-app/dashboard.dashboard-app.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard-app/dashboard.dashboard-app.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard-lib/dashboard.dashboard-lib.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard-lib/dashboard.dashboard-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard-lib/dashboard.dashboard-lib.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard-lib/dashboard.dashboard-lib.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard-lib/dashboard.dashboard-lib.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard-lib/dashboard.dashboard-lib.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard-shared/dashboard.dashboard-shared.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard-shared/dashboard.dashboard-shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard-shared/dashboard.dashboard-shared.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard-shared/dashboard.dashboard-shared.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard-shared/dashboard.dashboard-shared.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard-shared/dashboard.dashboard-shared.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard.test.iml" />
+    </modules>
+  </component>
+</project>

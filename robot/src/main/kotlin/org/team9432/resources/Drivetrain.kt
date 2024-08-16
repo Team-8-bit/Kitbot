@@ -4,10 +4,10 @@ import com.revrobotics.CANSparkBase
 import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
-import org.team9432.lib.coroutines.CoroutineRobot
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.doglog.Logger
 import org.team9432.lib.resource.Resource
-import org.team9432.oi.Buttons
 
 
 var driveTrain: DifferentialDrive? = null
@@ -21,9 +21,7 @@ object Drivetrain : Resource("Drivetrain"){
     private val rightTopDriveMotor = CANSparkMax(13, CANSparkLowLevel.MotorType.kBrushless)
     private val rightBottomDriveMotor = CANSparkMax(14, CANSparkLowLevel.MotorType.kBrushless)
 
-    fun periodic() {
-        arcadeDrive(Buttons.getJoystickDrive(), Buttons.getJoystickRotation())
-    }
+
 
     init {
         leftTopDriveMotor.follow(leftBottomDriveMotor)
@@ -45,7 +43,9 @@ object Drivetrain : Resource("Drivetrain"){
         driveTrain = DifferentialDrive(leftBottomDriveMotor, rightBottomDriveMotor)
         driveTrain?.isSafetyEnabled = false
 
-        CoroutineRobot.startPeriodic { log(); periodic() }
+        RobotPeriodicManager.startPeriodic { log(); }
+
+        SmartDashboard.putData(driveTrain)
     }
 
     fun tankDrive(leftSpeed: Double, rightSpeed: Double) {
