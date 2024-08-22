@@ -24,12 +24,15 @@ object Controls {
         controller.a
             .onTrue{ RobotController.setAction { Actions.startShooting() } }
             .onFalse{ RobotController.setAction { Actions.stopShooting() } }
+
+        controller.y
+            .onTrue { RobotController.resetRequests(); RobotController.setAction { Actions.idle() }}
         RobotPeriodicManager.startPeriodic { drive() }
     }
 
     private fun drive() {
         if(Robot.mode == CoroutineRobot.Mode.TELEOP){
-            arcadeDrive(controller.leftY, controller.leftX + controller.leftTriggerAxis - controller.rightTriggerAxis)
+            arcadeDrive(controller.leftY, controller.leftX - controller.leftTriggerAxis + controller.rightTriggerAxis)
         }
     }
 

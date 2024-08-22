@@ -16,21 +16,24 @@ object Actions {
     suspend fun intake() {
         Shooter.setState(Shooter.State.INTAKE)
         Loader.setState(Loader.State.INTAKE)
+        delay(0.25.seconds)
         await(20.milliseconds) { Loader.motorBottom.outputCurrent > 8 }
         if (Robot.mode == CoroutineRobot.Mode.TELEOP) {
-            RobotScope.launch { Controls.controller.rumbleDuration(2.seconds) }
+            RobotScope.launch { Controls.controller.rumbleDuration(1.seconds) }
         }
         Shooter.setState(Shooter.State.IDLE)
         Loader.setState(Loader.State.IDLE)
+        Shooter.note = true
     }
 
     suspend fun drop() {
         Shooter.setState(Shooter.State.DROP)
-        delay(0.25.seconds)
-        Loader.setState(Loader.State.LOAD)
-        delay(0.25.seconds)
+        delay(150.milliseconds)
+        Loader.setState(Loader.State.DROP)
+        delay(500.milliseconds)
         Loader.setState(Loader.State.IDLE)
         Shooter.setState(Shooter.State.IDLE)
+        Shooter.note = false
     }
 
     fun stopIntaking() {
@@ -47,6 +50,11 @@ object Actions {
         delay(0.5.seconds)
         Loader.setState(Loader.State.IDLE)
         Shooter.setState(Shooter.State.IDLE)
+        Shooter.note = false
     }
 
+    fun idle() {
+        Loader.setState(Loader.State.IDLE)
+        Shooter.setState(Shooter.State.IDLE)
+    }
 }

@@ -6,10 +6,7 @@ import kotlinx.coroutines.launch
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.coroutines.RobotScope
-import org.team9432.lib.led.animations.breath
-import org.team9432.lib.led.animations.chaseColors
-import org.team9432.lib.led.animations.pulse
-import org.team9432.lib.led.animations.strobe
+import org.team9432.lib.led.animations.*
 import org.team9432.lib.led.color.Color
 import org.team9432.lib.led.color.predefined.*
 import org.team9432.lib.led.management.AnimationBindScope
@@ -36,21 +33,21 @@ object LEDs {
             If({ Robot.mode == CoroutineRobot.Mode.DISABLED }) {
                 setAnimation {
                     repeat(9999) {
-                        leds.chaseColors(Color.RainbowStripesColors, timePerStep = 0.01.seconds).invoke()
+                        leds.breath(Color.ForestColors).invoke()
                     }
                 }
             }.ElseIf({ Robot.mode == CoroutineRobot.Mode.AUTONOMOUS }) {
                 setAnimation(leds.strobe(Color.Red, period = 0.5.seconds))
             }.ElseIf({ Robot.mode == CoroutineRobot.Mode.TELEOP }) {
                 If({ Shooter.shooterState == Shooter.State.INTAKE }) {
-                    setAnimation(leds.pulse(Color.Green,cooldown = 0.seconds,timePerStep = 0.01.seconds))
-                }.ElseIf ({Shooter.note}) {
-                    setAnimation(leds.breath(Color.RainbowColors, colorDuration = 0.1.seconds, speed = 10))
+                    setAnimation(leds.strobe(Color.Green, 250.milliseconds))
+                }.ElseIf({ Shooter.note }) {
+                    setAnimation(leds.strobe(Color.DarkOrange, 250.milliseconds))
                 }.Else {
                     If({ Robot.alliance == DriverStation.Alliance.Red }) {
-                        setAnimation(leds.pulse(Color.Red, cooldown = 0.seconds, timePerStep = 0.01.seconds))
+                        setAnimation(leds.solid(Color.Red))
                     }.ElseIf({ Robot.alliance == DriverStation.Alliance.Blue }) {
-                        setAnimation(leds.pulse(Color.Blue, cooldown = 0.seconds, timePerStep = 0.01.seconds))
+                        setAnimation(leds.solid(Color.Blue))
                     }
                 }
             }

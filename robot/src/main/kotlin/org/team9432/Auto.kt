@@ -10,7 +10,7 @@ object Auto {
         delay(1.seconds)
         Actions.stopShooting()
         delay(1.seconds)
-        Drivetrain.tankDrive(-0.5, -0.5)
+        Drivetrain.tankDrive(0.5, 0.5)
         delay(3.seconds)
         Drivetrain.tankDrive(0.0, 0.0)
     }

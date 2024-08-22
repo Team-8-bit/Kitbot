@@ -23,8 +23,8 @@ object Shooter : Resource("Shooter") {
 
     enum class State(val getSpeed: () -> DoubleArray) {
         SHOOT({ doubleArrayOf(6500.0,6500.0) }),
-        INTAKE({ doubleArrayOf(-3750.0,-3750.0) }),
-        DROP({ doubleArrayOf(300.0,300.0) }),
+        INTAKE({ doubleArrayOf(-1700.0,-1700.0) }),
+        DROP({ doubleArrayOf(500.0,500.0) }),
         IDLE({ doubleArrayOf(0.0,0.0) });
     }
 
@@ -42,21 +42,19 @@ object Shooter : Resource("Shooter") {
     }
 
     private fun trackState() {
-        motorTop.setVoltage(topPid.calculate(shooterState.getSpeed()[0]) + feedforward.calculate(topPid.setpoint)/2)
-        motorSide.setVoltage(sidePid.calculate(shooterState.getSpeed()[1]) + feedforward.calculate(sidePid.setpoint)/2)
+        motorTop.setVoltage(topPid.calculate(shooterState.getSpeed()[0])/2 + feedforward.calculate(topPid.setpoint))
+        motorSide.setVoltage(sidePid.calculate(shooterState.getSpeed()[1])/2 + feedforward.calculate(sidePid.setpoint))
     }
 
     fun log() {
 
         Logger.log("Shooter/sideMotor/RPM", motorSide.encoder.velocity)
-        Logger.log("Shooter/sideMotor/SetPoint Speed", sidePid.setpoint)
         Logger.log("Shooter/sideMotor/Amps", motorSide.outputCurrent)
-        Logger.log("Shooter/sideMotor/Volts", motorSide.appliedOutput)
+        Logger.log("Shooter/sideMotor/SetSpeed", motorSide.appliedOutput)
 
         Logger.log("Shooter/topMotor/RPM", motorTop.encoder.velocity)
-        Logger.log("Shooter/topMotor/SetPoint Speed", topPid.setpoint)
         Logger.log("Shooter/topMotor/Amps", motorTop.outputCurrent)
-        Logger.log("Shooter/topMotor/Volts", motorTop.appliedOutput)
+        Logger.log("Shooter/topMotor/SetSpeed", motorTop.appliedOutput)
 
         Logger.log("Shooter/NoteInRobot", note)
 

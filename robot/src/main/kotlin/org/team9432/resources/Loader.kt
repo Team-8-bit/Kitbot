@@ -20,7 +20,8 @@ object Loader: Resource("Loader") {
 
     enum class State(val getSpeed: () -> Double) {
         LOAD({ 3750.0 }),
-        INTAKE({ -3750.0 }),
+        DROP({ 2500.0 }),
+        INTAKE({ -500.0 }),
         IDLE({ 0.0 });
     }
 
@@ -33,14 +34,13 @@ object Loader: Resource("Loader") {
     }
 
     private fun trackState() {
-        motorBottom.setVoltage(bottomPid.calculate(loaderState.getSpeed()) + feedforward.calculate(bottomPid.setpoint)/2)
+        motorBottom.setVoltage(bottomPid.calculate(loaderState.getSpeed())/2 + feedforward.calculate(bottomPid.setpoint))
     }
 
     private fun log() {
         Logger.log("Loader/bottomMotor/RPM", motorBottom.encoder.velocity)
-        Logger.log("Loader/bottomMotor/SetPoint Speed", bottomPid.setpoint)
         Logger.log("Loader/bottomMotor/Amps", motorBottom.outputCurrent)
-        Logger.log("Loader/bottomMotor/Volts", motorBottom.appliedOutput)
+        Logger.log("Loader/bottomMotor/SetSpeed", motorBottom.appliedOutput)
 
         Logger.log("Loader/State", loaderState)
     }
