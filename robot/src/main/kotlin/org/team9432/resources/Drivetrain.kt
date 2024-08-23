@@ -67,6 +67,16 @@ object Drivetrain : Resource("Drivetrain"){
         Logger.log("Drivetrain/RightBottomMotor/Volts", rightBottomDriveMotor.appliedOutput)
         Logger.log("Drivetrain/RightBottomMotor/RPM", rightBottomDriveMotor.encoder.velocity)
         Logger.log("Drivetrain/RightBottomMotor/SetPoint Speed", rightBottomDriveMotor.get())
+
+        Logger.log("Drivetrain/LeftTopMotor/Amps", leftTopDriveMotor.outputCurrent)
+        Logger.log("Drivetrain/LeftTopMotor/Volts", leftTopDriveMotor.appliedOutput)
+        Logger.log("Drivetrain/LeftTopMotor/RPM", leftTopDriveMotor.encoder.velocity)
+        Logger.log("Drivetrain/LeftTopMotor/SetPoint Speed", leftTopDriveMotor.get())
+
+        Logger.log("Drivetrain/RightTopMotor/Amps", rightTopDriveMotor.outputCurrent)
+        Logger.log("Drivetrain/RightTopMotor/Volts", rightTopDriveMotor.appliedOutput)
+        Logger.log("Drivetrain/RightTopMotor/RPM", rightTopDriveMotor.encoder.velocity)
+        Logger.log("Drivetrain/RightTopMotor/SetPoint Speed", rightTopDriveMotor.get())
     }
 
     fun setIdleMode(mode: CANSparkBase.IdleMode) {

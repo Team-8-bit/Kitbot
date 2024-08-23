@@ -28,6 +28,9 @@ object Controls {
         controller.y
             .onTrue { RobotController.resetRequests(); RobotController.setAction { Actions.idle() }}
         RobotPeriodicManager.startPeriodic { drive() }
+
+        controller.leftBumper
+            .onTrue { RobotController.setAction { Actions.intake() } }
     }
 
     private fun drive() {
