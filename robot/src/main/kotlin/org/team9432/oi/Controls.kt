@@ -30,7 +30,7 @@ object Controls {
         RobotPeriodicManager.startPeriodic { drive() }
 
         controller.leftBumper
-            .onTrue { RobotController.setAction { Actions.intake() } }
+            .onTrue { RobotController.setAction { Actions.groundIntake() } }
     }
 
     private fun drive() {

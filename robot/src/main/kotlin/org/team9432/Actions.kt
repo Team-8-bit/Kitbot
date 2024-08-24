@@ -35,7 +35,7 @@ object Actions {
         delay(1.seconds)
         //Shooter.setState(Shooter.State.IDLE)
         //Loader.setState(Loader.State.IDLE)
-        //Shooter.note = true
+        Shooter.note = true
     }
 
     suspend fun drop() {

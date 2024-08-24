@@ -3,7 +3,6 @@ package org.team9432.resources
 import com.revrobotics.CANSparkBase
 import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
-import edu.wpi.first.units.Voltage
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.resource.Resource
 import org.team9432.lib.doglog.Logger
