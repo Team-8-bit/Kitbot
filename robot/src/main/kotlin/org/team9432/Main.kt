@@ -1,8 +1,61 @@
 @file:JvmName("Main") // set the compiled Java class name to "Main" rather than "MainKt"
 package org.team9432
 
-import org.team9432.lib.robot.RobotBase
+import com.revrobotics.CANSparkBase
+import edu.wpi.first.wpilibj.RobotBase
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import org.team9432.lib.coroutines.CoroutineRobot
+import org.team9432.lib.doglog.Logger
+import org.team9432.oi.Controls
+import org.team9432.resources.Drivetrain
+import org.team9432.resources.Loader
+import org.team9432.resources.Shooter
 
+object Robot : CoroutineRobot(useActionManager = false) {
+    private val autoChooser = SendableChooser<Int>()
+    override suspend fun periodic() {
+        super.periodic()
+    }
+    override suspend fun init() {
+        Logger.configureDevelopmentDefaults()
+
+        Shooter
+        Loader
+        Drivetrain
+
+        LEDs
+
+        Controls.bind()
+        autoChooser.addOption("Shoot Only",1)
+        autoChooser.addOption("Shoot And Drive",2)
+        autoChooser.setDefaultOption("Shoot Only",1)
+
+        SmartDashboard.putData(autoChooser)
+    }
+
+    override suspend fun disabled() {
+        super.disabled()
+        Drivetrain.setIdleMode(CANSparkBase.IdleMode.kCoast)
+        RobotController.resetRequests()
+    }
+
+    override suspend fun autonomous() {
+        super.autonomous()
+        Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
+        when(autoChooser.selected){
+            1 -> RobotController.setAction { Auto.onlyShoot() }
+            2 -> RobotController.setAction { Auto.shootAndDrive() }
+        }
+    }
+
+    override suspend fun teleop() {
+        super.teleop()
+        Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
+    }
+
+
+}
 /**
  * Main initialization function. Do not perform any initialization here
  * other than calling `RobotBase.startRobot`. Do not modify this file
