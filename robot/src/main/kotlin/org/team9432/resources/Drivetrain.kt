@@ -40,6 +40,11 @@ object Drivetrain : Resource("Drivetrain"){
         rightBottomDriveMotor.setSmartCurrentLimit(60)
         leftBottomDriveMotor.setSmartCurrentLimit(60)
 
+        leftTopDriveMotor.enableVoltageCompensation(12.0)
+        rightTopDriveMotor.enableVoltageCompensation(12.0)
+        rightBottomDriveMotor.enableVoltageCompensation(12.0)
+        leftBottomDriveMotor.enableVoltageCompensation(12.0)
+
         driveTrain = DifferentialDrive(leftBottomDriveMotor, rightBottomDriveMotor)
         driveTrain?.isSafetyEnabled = false
 

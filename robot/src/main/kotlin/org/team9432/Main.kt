@@ -31,7 +31,8 @@ object Robot : CoroutineRobot(useActionManager = false) {
         Controls.bind()
         autoChooser.addOption("Shoot Only",1)
         autoChooser.addOption("Shoot And Drive",2)
-        autoChooser.setDefaultOption("Shoot Only",1)
+        autoChooser.addOption("Basic Two Note",3)
+        autoChooser.setDefaultOption("Shoot And Drive",2)
 
         SmartDashboard.putData(autoChooser)
     }
@@ -48,6 +49,7 @@ object Robot : CoroutineRobot(useActionManager = false) {
         when(autoChooser.selected){
             1 -> RobotController.setAction { Auto.onlyShoot() }
             2 -> RobotController.setAction { Auto.shootAndDrive() }
+            3 -> RobotController.setAction { Auto.basicTwoNote() }
         }
     }
 
