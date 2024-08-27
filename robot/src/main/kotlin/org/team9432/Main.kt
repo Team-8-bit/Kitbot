@@ -9,6 +9,7 @@ import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.doglog.Logger
 import org.team9432.oi.Controls
 import org.team9432.resources.Drivetrain
+import org.team9432.resources.Intake
 import org.team9432.resources.Loader
 import org.team9432.resources.Shooter
 
@@ -23,6 +24,7 @@ object Robot : CoroutineRobot(useActionManager = false) {
         Shooter
         Loader
         Drivetrain
+        Intake
 
         LEDs
 
