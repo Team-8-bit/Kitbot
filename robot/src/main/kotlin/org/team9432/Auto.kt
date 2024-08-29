@@ -25,7 +25,7 @@ object Auto {
         delay(1.seconds)
         Actions.stopShooting()
     }
-    suspend fun basicTwoNote() {
+    suspend fun basicTwoNote() { //TODO TUNE
         Actions.startShooting()
         delay(1.5.seconds)
         Actions.stopShooting()

@@ -13,7 +13,7 @@ import org.team9432.resources.Drivetrain.arcadeDrive
 object Controls {
     val controller = XboxController(0)
 
-    suspend fun bind(){
+    fun bind(){
         controller.x
             .onTrue { Actions.drop() }
 

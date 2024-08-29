@@ -20,7 +20,7 @@ object Robot : CoroutineRobot(useActionManager = false) {
         super.periodic()
     }
     override suspend fun init() {
-        Logger.configureDevelopmentDefaults()
+        Logger.configure(ntPublish = true, captureNt = true, captureDs = true, logExtras = true, logEntryQueueCapacity = 1000)
 
         Shooter
         Loader
