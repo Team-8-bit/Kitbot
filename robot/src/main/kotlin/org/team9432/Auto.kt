@@ -1,6 +1,10 @@
 package org.team9432
 
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.time.withTimeout
+import kotlinx.coroutines.withTimeout
+import org.team9432.lib.coroutines.await
+import org.team9432.lib.coroutines.parallel
 import org.team9432.resources.Drivetrain
 import org.team9432.resources.Intake
 import kotlin.time.Duration.Companion.milliseconds
@@ -23,16 +27,20 @@ object Auto {
     }
     suspend fun basicTwoNote() {
         Actions.startShooting()
-        delay(1.seconds)
+        delay(1.5.seconds)
         Actions.stopShooting()
 
-        Actions.intake()
-        Drivetrain.tankDrive(0.5, 0.5)
+        parallel(
+            Actions::groundIntake,
+             { Drivetrain.tankDrive(0.5, 0.5) }
+        )
         Intake.beambreak.awaitTripped(20.milliseconds)
         Drivetrain.tankDrive(-0.5, -0.5)
         delay(1.seconds)
+        await { Drivetrain.rightBottomDriveMotor.outputCurrent > 15.0}
+        Drivetrain.tankDrive(0.0, 0.0)
         Actions.startShooting()
-        delay(1.seconds)
+        delay(1.5.seconds)
         Actions.stopShooting()
     }
 }

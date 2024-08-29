@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.doglog.Logger
+import org.team9432.lib.resource.Action
 import org.team9432.oi.Controls
 import org.team9432.resources.Drivetrain
 import org.team9432.resources.Intake
@@ -14,7 +15,7 @@ import org.team9432.resources.Loader
 import org.team9432.resources.Shooter
 
 object Robot : CoroutineRobot(useActionManager = false) {
-    private val autoChooser = SendableChooser<Int>()
+    private val autoChooser = SendableChooser<Action>()
     override suspend fun periodic() {
         super.periodic()
     }
@@ -29,10 +30,10 @@ object Robot : CoroutineRobot(useActionManager = false) {
         LEDs
 
         Controls.bind()
-        autoChooser.addOption("Shoot Only",1)
-        autoChooser.addOption("Shoot And Drive",2)
-        autoChooser.addOption("Basic Two Note",3)
-        autoChooser.setDefaultOption("Shoot And Drive",2)
+        autoChooser.addOption("Shoot Only") { Auto.onlyShoot() }
+        autoChooser.addOption("Shoot And Drive") { Auto.shootAndDrive() }
+        autoChooser.addOption("Basic Two Note") { Auto.basicTwoNote() }
+        autoChooser.setDefaultOption("Shoot And Drive") { Auto.shootAndDrive() }
 
         SmartDashboard.putData(autoChooser)
     }
@@ -46,11 +47,7 @@ object Robot : CoroutineRobot(useActionManager = false) {
     override suspend fun autonomous() {
         super.autonomous()
         Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
-        when(autoChooser.selected){
-            1 -> RobotController.setAction { Auto.onlyShoot() }
-            2 -> RobotController.setAction { Auto.shootAndDrive() }
-            3 -> RobotController.setAction { Auto.basicTwoNote() }
-        }
+        RobotController.setAction(autoChooser.selected)
     }
 
     override suspend fun teleop() {
