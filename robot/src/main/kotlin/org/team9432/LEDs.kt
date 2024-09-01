@@ -14,6 +14,7 @@ import org.team9432.lib.led.management.AnimationManager
 import org.team9432.lib.led.management.Section
 import org.team9432.lib.led.strip.LEDStrip
 import org.team9432.lib.led.strip.RioLedStrip
+import org.team9432.resources.Intake
 import org.team9432.resources.Shooter
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -39,7 +40,7 @@ object LEDs {
             }.ElseIf({ Robot.mode == CoroutineRobot.Mode.AUTONOMOUS }) {
                 setAnimation(leds.strobe(Color.Red, period = 0.5.seconds))
             }.ElseIf({ Robot.mode == CoroutineRobot.Mode.TELEOP }) {
-                If({ Shooter.shooterState == Shooter.State.INTAKE }) {
+                If({ Shooter.shooterState == Shooter.State.INTAKE || Intake.intakeState == Intake.State.INTAKE }) {
                     setAnimation(leds.strobe(Color.Green, 250.milliseconds))
                 }.ElseIf({ Shooter.note }) {
                     setAnimation(leds.strobe(Color.DarkOrange, 250.milliseconds))

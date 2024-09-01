@@ -21,17 +21,18 @@ object Intake: Resource("Intake") {
     enum class State(val getVoltage: () -> DoubleArray) {
         INTAKE({ doubleArrayOf(4.0,9.36) }),
         LOAD({ doubleArrayOf(6.0,0.0)}),
+        REVERSE({doubleArrayOf(-4.0,0.0)}),
         IDLE({ doubleArrayOf(0.0,0.0) });
     }
 
     init {
         motorBack.setIdleMode(CANSparkBase.IdleMode.kBrake)
-        motorBack.setSmartCurrentLimit(60)
+        motorBack.setSmartCurrentLimit(50)
         motorBack.inverted = false
         motorBack.enableVoltageCompensation(11.0)
 
         motorFront.setIdleMode(CANSparkBase.IdleMode.kBrake)
-        motorFront.setSmartCurrentLimit(60)
+        motorFront.setSmartCurrentLimit(30)
         motorFront.inverted = false
         motorFront.enableVoltageCompensation(11.0)
 

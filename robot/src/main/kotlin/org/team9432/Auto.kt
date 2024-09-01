@@ -32,10 +32,10 @@ object Auto {
 
         parallel(
             Actions::groundIntake,
-             { Drivetrain.tankDrive(0.5, 0.5) }
+             { Drivetrain.tankDrive(0.375, 0.375) }
         )
         Intake.beambreak.awaitTripped(20.milliseconds)
-        Drivetrain.tankDrive(-0.5, -0.5)
+        Drivetrain.tankDrive(-0.375, -0.375)
         delay(1.seconds)
         await { Drivetrain.rightBottomDriveMotor.outputCurrent > 15.0}
         Drivetrain.tankDrive(0.0, 0.0)

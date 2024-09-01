@@ -19,7 +19,6 @@ object Controls {
 
         controller.b
             .onTrue{ RobotController.setAction { Actions.intake() } }
-            .onFalse{ RobotController.setAction { Actions.stopIntaking() } }
 
         controller.a
             .onTrue{ RobotController.setAction { Actions.startShooting() } }
