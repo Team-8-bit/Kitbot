@@ -45,6 +45,11 @@ object Drivetrain : Resource("Drivetrain"){
         rightBottomDriveMotor.enableVoltageCompensation(12.0)
         leftBottomDriveMotor.enableVoltageCompensation(12.0)
 
+        leftTopDriveMotor.burnFlash()
+        rightTopDriveMotor.burnFlash()
+        rightBottomDriveMotor.burnFlash()
+        leftBottomDriveMotor.burnFlash()
+
         driveTrain = DifferentialDrive(leftBottomDriveMotor, rightBottomDriveMotor)
         driveTrain?.isSafetyEnabled = false
 

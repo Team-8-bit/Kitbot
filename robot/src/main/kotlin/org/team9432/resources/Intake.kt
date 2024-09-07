@@ -36,6 +36,9 @@ object Intake: Resource("Intake") {
         motorFront.inverted = false
         motorFront.enableVoltageCompensation(11.0)
 
+        motorFront.burnFlash()
+        motorBack.burnFlash()
+
         RobotPeriodicManager.startPeriodic { trackState(); log() }
     }
 

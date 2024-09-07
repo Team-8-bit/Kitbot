@@ -38,6 +38,9 @@ object Shooter : Resource("Shooter") {
         motorSide.setSmartCurrentLimit(60)
         motorSide.inverted = false
 
+        motorTop.burnFlash()
+        motorSide.burnFlash()
+
         RobotPeriodicManager.startPeriodic { trackState(); log() }
     }
 

@@ -30,6 +30,8 @@ object Loader: Resource("Loader") {
         motorBottom.setSmartCurrentLimit(60)
         motorBottom.inverted = true
 
+        motorBottom.burnFlash()
+
         RobotPeriodicManager.startPeriodic { trackState(); log() }
     }
 
