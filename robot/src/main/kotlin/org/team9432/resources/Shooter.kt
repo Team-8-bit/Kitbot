@@ -5,8 +5,8 @@ import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.controller.SimpleMotorFeedforward
+import org.littletonrobotics.junction.Logger
 import org.team9432.lib.RobotPeriodicManager
-import org.team9432.lib.doglog.Logger
 import org.team9432.lib.resource.Resource
 
 object Shooter : Resource("Shooter") {
@@ -51,17 +51,17 @@ object Shooter : Resource("Shooter") {
 
     fun log() {
 
-        Logger.log("Shooter/sideMotor/RPM", motorSide.encoder.velocity)
-        Logger.log("Shooter/sideMotor/Amps", motorSide.outputCurrent)
-        Logger.log("Shooter/sideMotor/SetSpeed", motorSide.appliedOutput)
+        Logger.recordOutput("Shooter/sideMotor/RPM", motorSide.encoder.velocity)
+        Logger.recordOutput("Shooter/sideMotor/Amps", motorSide.outputCurrent)
+        Logger.recordOutput("Shooter/sideMotor/SetSpeed", motorSide.appliedOutput)
 
-        Logger.log("Shooter/topMotor/RPM", motorTop.encoder.velocity)
-        Logger.log("Shooter/topMotor/Amps", motorTop.outputCurrent)
-        Logger.log("Shooter/topMotor/SetSpeed", motorTop.appliedOutput)
+        Logger.recordOutput("Shooter/topMotor/RPM", motorTop.encoder.velocity)
+        Logger.recordOutput("Shooter/topMotor/Amps", motorTop.outputCurrent)
+        Logger.recordOutput("Shooter/topMotor/SetSpeed", motorTop.appliedOutput)
 
-        Logger.log("Shooter/NoteInRobot", note)
+        Logger.recordOutput("Shooter/NoteInRobot", note)
 
-        Logger.log("Shooter/State", shooterState)
+        Logger.recordOutput("Shooter/State", shooterState)
     }
 
     fun setState(state: State) {

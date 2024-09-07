@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax
 import org.team9432.lib.Beambreak
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.resource.Resource
-import org.team9432.lib.doglog.Logger
+import org.littletonrobotics.junction.Logger
 
 object Intake: Resource("Intake") {
     var intakeState = State.IDLE
@@ -48,17 +48,17 @@ object Intake: Resource("Intake") {
     }
 
     private fun log() {
-        Logger.log("Intake/frontMotor/RPM", motorFront.encoder.velocity)
-        Logger.log("Intake/frontMotor/Amps", motorFront.outputCurrent)
-        Logger.log("Intake/frontMotor/SetSpeed", motorFront.appliedOutput)
+        Logger.recordOutput("Intake/frontMotor/RPM", motorFront.encoder.velocity)
+        Logger.recordOutput("Intake/frontMotor/Amps", motorFront.outputCurrent)
+        Logger.recordOutput("Intake/frontMotor/SetSpeed", motorFront.appliedOutput)
 
-        Logger.log("Intake/backMotor/RPM", motorBack.encoder.velocity)
-        Logger.log("Intake/backMotor/Amps", motorBack.outputCurrent)
-        Logger.log("Intake/backMotor/SetSpeed", motorBack.appliedOutput)
+        Logger.recordOutput("Intake/backMotor/RPM", motorBack.encoder.velocity)
+        Logger.recordOutput("Intake/backMotor/Amps", motorBack.outputCurrent)
+        Logger.recordOutput("Intake/backMotor/SetSpeed", motorBack.appliedOutput)
 
-        Logger.log("Intake/Beambreak", beambreak.isTripped())
+        Logger.recordOutput("Intake/Beambreak", beambreak.isTripped())
 
-        Logger.log("Intake/State", intakeState)
+        Logger.recordOutput("Intake/State", intakeState)
     }
 
     fun setState(state: State) {

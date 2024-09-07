@@ -1,10 +1,9 @@
 package org.team9432
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.team9432.lib.coroutines.CoroutineRobot
-import org.team9432.lib.coroutines.RobotScope
-import org.team9432.lib.coroutines.await
+import org.team9432.Robot.coroutineScope
 import org.team9432.oi.Controls
 import org.team9432.resources.Intake
 import org.team9432.resources.Loader
@@ -20,8 +19,8 @@ object Actions {
         delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
         Intake.beambreak.awaitClear()
-        if (Robot.mode == CoroutineRobot.Mode.TELEOP) {
-            RobotScope.launch { Controls.controller.rumbleDuration(1.seconds) }
+        if (Robot.mode.isTeleop) {
+            coroutineScope.launch { Controls.controller.rumbleDuration(1.seconds) }
         }
         Shooter.setState(Shooter.State.IDLE)
         Loader.setState(Loader.State.IDLE)
@@ -33,7 +32,7 @@ object Actions {
         Intake.setState(Intake.State.INTAKE)
         delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
-        if (Robot.mode == CoroutineRobot.Mode.TELEOP) { RobotScope.launch { Controls.controller.rumbleDuration(1.seconds) }}
+        if (Robot.mode.isTeleop) { coroutineScope.launch { Controls.controller.rumbleDuration(1.seconds) }}
         Intake.setState(Intake.State.IDLE)
         Shooter.note = true
     }

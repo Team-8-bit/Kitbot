@@ -2,18 +2,13 @@ package org.team9432.oi
 
 
 import org.team9432.Actions
-import org.team9432.Robot
 import org.team9432.RobotController
-import org.team9432.lib.RobotPeriodicManager
-import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.input.XboxController
-import org.team9432.resources.Drivetrain.arcadeDrive
-
 
 object Controls {
     val controller = XboxController(0)
 
-    fun bind(){
+    init{
         controller.x
             .onTrue { Actions.drop() }
 
@@ -26,16 +21,10 @@ object Controls {
 
         controller.y
             .onTrue { RobotController.resetRequests(); RobotController.setAction { Actions.idle() }}
-        RobotPeriodicManager.startPeriodic { drive() }
 
         controller.leftBumper
             .onTrue { RobotController.setAction { Actions.groundIntake() } }
     }
 
-    private fun drive() {
-        if(Robot.mode == CoroutineRobot.Mode.TELEOP){
-            arcadeDrive(controller.leftY, controller.leftX - controller.leftTriggerAxis + controller.rightTriggerAxis)
-        }
-    }
 
 }

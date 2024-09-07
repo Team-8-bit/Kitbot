@@ -1,11 +1,10 @@
 package org.team9432
 
 import kotlinx.coroutines.*
-import org.team9432.lib.coroutines.RobotScope
 import org.team9432.lib.resource.Action
 
 object RobotController {
-    private val coroutineScope = RobotScope
+    private val coroutineScope = Robot.coroutineScope
 
     private var currentJob: Job? = null
 

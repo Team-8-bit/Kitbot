@@ -5,9 +5,9 @@ import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.controller.SimpleMotorFeedforward
+import org.littletonrobotics.junction.Logger
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.resource.Resource
-import org.team9432.lib.doglog.Logger
 
 object Loader: Resource("Loader") {
     var loaderState = State.IDLE
@@ -40,11 +40,11 @@ object Loader: Resource("Loader") {
     }
 
     private fun log() {
-        Logger.log("Loader/bottomMotor/RPM", motorBottom.encoder.velocity)
-        Logger.log("Loader/bottomMotor/Amps", motorBottom.outputCurrent)
-        Logger.log("Loader/bottomMotor/SetSpeed", motorBottom.appliedOutput)
+        Logger.recordOutput("Loader/bottomMotor/RPM", motorBottom.encoder.velocity)
+        Logger.recordOutput("Loader/bottomMotor/Amps", motorBottom.outputCurrent)
+        Logger.recordOutput("Loader/bottomMotor/SetSpeed", motorBottom.appliedOutput)
 
-        Logger.log("Loader/State", loaderState)
+        Logger.recordOutput("Loader/State", loaderState)
     }
 
     fun setState(state: State) {

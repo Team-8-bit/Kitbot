@@ -6,8 +6,8 @@ import com.revrobotics.CANSparkMax
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import org.team9432.lib.RobotPeriodicManager
-import org.team9432.lib.doglog.Logger
 import org.team9432.lib.resource.Resource
+import org.littletonrobotics.junction.Logger
 
 
 var driveTrain: DifferentialDrive? = null
@@ -68,25 +68,25 @@ object Drivetrain : Resource("Drivetrain"){
 
 
     fun log() {
-        Logger.log("Drivetrain/LeftBottomMotor/Amps", leftBottomDriveMotor.outputCurrent)
-        Logger.log("Drivetrain/LeftBottomMotor/Volts", leftBottomDriveMotor.appliedOutput)
-        Logger.log("Drivetrain/LeftBottomMotor/RPM", leftBottomDriveMotor.encoder.velocity)
-        Logger.log("Drivetrain/LeftBottomMotor/SetPoint Speed", leftBottomDriveMotor.get())
+        Logger.recordOutput("Drivetrain/LeftBottomMotor/Amps", leftBottomDriveMotor.outputCurrent)
+        Logger.recordOutput("Drivetrain/LeftBottomMotor/Volts", leftBottomDriveMotor.appliedOutput)
+        Logger.recordOutput("Drivetrain/LeftBottomMotor/RPM", leftBottomDriveMotor.encoder.velocity)
+        Logger.recordOutput("Drivetrain/LeftBottomMotor/SetPoint Speed", leftBottomDriveMotor.get())
 
-        Logger.log("Drivetrain/RightBottomMotor/Amps", rightBottomDriveMotor.outputCurrent)
-        Logger.log("Drivetrain/RightBottomMotor/Volts", rightBottomDriveMotor.appliedOutput)
-        Logger.log("Drivetrain/RightBottomMotor/RPM", rightBottomDriveMotor.encoder.velocity)
-        Logger.log("Drivetrain/RightBottomMotor/SetPoint Speed", rightBottomDriveMotor.get())
+        Logger.recordOutput("Drivetrain/RightBottomMotor/Amps", rightBottomDriveMotor.outputCurrent)
+        Logger.recordOutput("Drivetrain/RightBottomMotor/Volts", rightBottomDriveMotor.appliedOutput)
+        Logger.recordOutput("Drivetrain/RightBottomMotor/RPM", rightBottomDriveMotor.encoder.velocity)
+        Logger.recordOutput("Drivetrain/RightBottomMotor/SetPoint Speed", rightBottomDriveMotor.get())
 
-        Logger.log("Drivetrain/LeftTopMotor/Amps", leftTopDriveMotor.outputCurrent)
-        Logger.log("Drivetrain/LeftTopMotor/Volts", leftTopDriveMotor.appliedOutput)
-        Logger.log("Drivetrain/LeftTopMotor/RPM", leftTopDriveMotor.encoder.velocity)
-        Logger.log("Drivetrain/LeftTopMotor/SetPoint Speed", leftTopDriveMotor.get())
+        Logger.recordOutput("Drivetrain/LeftTopMotor/Amps", leftTopDriveMotor.outputCurrent)
+        Logger.recordOutput("Drivetrain/LeftTopMotor/Volts", leftTopDriveMotor.appliedOutput)
+        Logger.recordOutput("Drivetrain/LeftTopMotor/RPM", leftTopDriveMotor.encoder.velocity)
+        Logger.recordOutput("Drivetrain/LeftTopMotor/SetPoint Speed", leftTopDriveMotor.get())
 
-        Logger.log("Drivetrain/RightTopMotor/Amps", rightTopDriveMotor.outputCurrent)
-        Logger.log("Drivetrain/RightTopMotor/Volts", rightTopDriveMotor.appliedOutput)
-        Logger.log("Drivetrain/RightTopMotor/RPM", rightTopDriveMotor.encoder.velocity)
-        Logger.log("Drivetrain/RightTopMotor/SetPoint Speed", rightTopDriveMotor.get())
+        Logger.recordOutput("Drivetrain/RightTopMotor/Amps", rightTopDriveMotor.outputCurrent)
+        Logger.recordOutput("Drivetrain/RightTopMotor/Volts", rightTopDriveMotor.appliedOutput)
+        Logger.recordOutput("Drivetrain/RightTopMotor/RPM", rightTopDriveMotor.encoder.velocity)
+        Logger.recordOutput("Drivetrain/RightTopMotor/SetPoint Speed", rightTopDriveMotor.get())
     }
 
     fun setIdleMode(mode: CANSparkBase.IdleMode) {
