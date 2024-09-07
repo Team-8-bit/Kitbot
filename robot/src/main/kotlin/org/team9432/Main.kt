@@ -12,15 +12,14 @@ import org.littletonrobotics.junction.networktables.NT4Publisher
 import org.littletonrobotics.junction.wpilog.WPILOGReader
 import org.littletonrobotics.junction.wpilog.WPILOGWriter
 import org.team9432.lib.Library
-import org.team9432.lib.coroutines.CoroutineRobot
 import org.team9432.lib.coroutines.LoggedCoroutineRobot
 import org.team9432.lib.coroutines.Team8BitRobot.Runtime.*
 import org.team9432.lib.resource.Action
 import org.team9432.oi.Controls
 import org.team9432.resources.Drivetrain
-import org.team9432.resources.Intake
-import org.team9432.resources.Loader
-import org.team9432.resources.Shooter
+import org.team9432.resources.intake.Intake
+import org.team9432.resources.loader.Loader
+import org.team9432.resources.shooter.Shooter
 
 object Robot : LoggedCoroutineRobot() {
     val runtime = if (RobotBase.isReal()) REAL else SIM

@@ -1,13 +1,12 @@
 package org.team9432
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.team9432.Robot.coroutineScope
 import org.team9432.oi.Controls
-import org.team9432.resources.Intake
-import org.team9432.resources.Loader
-import org.team9432.resources.Shooter
+import org.team9432.resources.intake.Intake
+import org.team9432.resources.loader.Loader
+import org.team9432.resources.shooter.Shooter
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 

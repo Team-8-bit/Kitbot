@@ -1,12 +1,10 @@
 package org.team9432
 
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.time.withTimeout
-import kotlinx.coroutines.withTimeout
 import org.team9432.lib.coroutines.await
 import org.team9432.lib.coroutines.parallel
 import org.team9432.resources.Drivetrain
-import org.team9432.resources.Intake
+import org.team9432.resources.intake.Intake
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
