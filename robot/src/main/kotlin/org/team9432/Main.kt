@@ -16,7 +16,7 @@ import org.team9432.lib.coroutines.LoggedCoroutineRobot
 import org.team9432.lib.coroutines.Team8BitRobot.Runtime.*
 import org.team9432.lib.resource.Action
 import org.team9432.oi.Controls
-import org.team9432.resources.Drivetrain
+import org.team9432.resources.drivetrain.Drivetrain
 import org.team9432.resources.intake.Intake
 import org.team9432.resources.loader.Loader
 import org.team9432.resources.shooter.Shooter
@@ -69,29 +69,26 @@ object Robot : LoggedCoroutineRobot() {
         LEDs
 
 
-        autoChooser.addOption("Shoot Only") { Auto.onlyShoot() }
-        autoChooser.addOption("Shoot And Drive") { Auto.shootAndDrive() }
-        autoChooser.addOption("Basic Two Note") { Auto.basicTwoNote() }
-        autoChooser.setDefaultOption("Shoot And Drive") { Auto.shootAndDrive() }
+//        autoChooser.addOption("Shoot Only") { Auto.onlyShoot() }
+//        autoChooser.addOption("Shoot And Drive") { Auto.shootAndDrive() }
+//        autoChooser.addOption("Basic Two Note") { Auto.basicTwoNote() }
+//        autoChooser.setDefaultOption("Shoot And Drive") { Auto.shootAndDrive() }
 
         SmartDashboard.putData(autoChooser)
     }
 
     override suspend fun disabled() {
         super.disabled()
-        Drivetrain.setIdleMode(CANSparkBase.IdleMode.kCoast)
         RobotController.resetRequests()
     }
 
     override suspend fun autonomous() {
         super.autonomous()
-        Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
         RobotController.setAction(autoChooser.selected)
     }
 
     override suspend fun teleop() {
         super.teleop()
-        Drivetrain.setIdleMode(CANSparkBase.IdleMode.kBrake)
     }
 
 
