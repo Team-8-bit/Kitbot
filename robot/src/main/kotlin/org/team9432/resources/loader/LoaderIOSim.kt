@@ -16,7 +16,7 @@ class LoaderIOSim: LoaderIO {
 
 
     override fun setSpeed(speed: Double) {
-        appliedVoltage = MathUtil.clamp(pid.calculate(speed)/2 + ff.calculate(speed), -12.0, 12.0)
+        appliedVoltage = MathUtil.clamp(pid.calculate(speed) / 2 + ff.calculate(speed), -12.0, 12.0)
         sim.setInputVoltage(appliedVoltage)
     }
 

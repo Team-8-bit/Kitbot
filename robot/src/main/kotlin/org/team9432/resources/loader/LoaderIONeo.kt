@@ -14,7 +14,6 @@ class LoaderIONeo: LoaderIO {
     private val bottomPid = PIDController(0.0039231, 0.0, 0.0)
     private var feedforward = SimpleMotorFeedforward(0.0, 0.0086634, 0.0038234)
 
-
     init {
         motor.inverted = false
         motor.enableVoltageCompensation(11.0)
@@ -24,7 +23,7 @@ class LoaderIONeo: LoaderIO {
     }
 
     override fun setSpeed(speed: Double) {
-        motor.setVoltage(bottomPid.calculate(speed)/2 + feedforward.calculate(speed))
+        motor.setVoltage(bottomPid.calculate(speed) / 2 + feedforward.calculate(speed))
     }
 
     override fun updateInputs(inputs: LoaderIO.LoaderIOInputs) {

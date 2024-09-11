@@ -8,23 +8,21 @@ import org.team9432.lib.input.XboxController
 object Controls {
     val controller = XboxController(0)
 
-    init{
+    init {
         controller.x
             .onTrue { Actions.drop() }
 
         controller.b
-            .onTrue{ RobotController.setAction { Actions.intake() } }
+            .onTrue { RobotController.setAction { Actions.intake() } }
 
         controller.a
-            .onTrue{ RobotController.setAction { Actions.startShooting() } }
-            .onFalse{ RobotController.setAction { Actions.stopShooting() } }
+            .onTrue { RobotController.setAction { Actions.startShooting() } }
+            .onFalse { RobotController.setAction { Actions.stopShooting() } }
 
         controller.y
-            .onTrue { RobotController.resetRequests(); RobotController.setAction { Actions.idle() }}
+            .onTrue { RobotController.resetRequests(); RobotController.setAction { Actions.idle() } }
 
         controller.leftBumper
             .onTrue { RobotController.setAction { Actions.groundIntake() } }
     }
-
-
 }

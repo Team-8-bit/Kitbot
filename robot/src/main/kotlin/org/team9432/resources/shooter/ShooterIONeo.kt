@@ -33,8 +33,8 @@ class ShooterIONeo: ShooterIO {
     }
 
     override fun setSpeeds(speeds: DoubleArray) {
-        motorLeft.setVoltage(leftPid.calculate(speeds[0])/2 + ff.calculate(leftPid.setpoint))
-        motorRight.setVoltage(rightPid.calculate(speeds[1])/2 + ff.calculate(rightPid.setpoint))
+        motorLeft.setVoltage(leftPid.calculate(speeds[0]) / 2 + ff.calculate(leftPid.setpoint))
+        motorRight.setVoltage(rightPid.calculate(speeds[1]) / 2 + ff.calculate(rightPid.setpoint))
     }
 
     override fun updateInputs(inputs: ShooterIO.ShooterIOInputs) {

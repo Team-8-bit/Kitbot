@@ -16,7 +16,6 @@ interface IntakeIO {
         var frontAppliedVoltage: Double = 0.0
         var frontSupplyCurrentAmps: Double = 0.0
         var frontTempFahrenheit: Double = 0.0
-
     }
 
     val backReduction get() = 26.0 / 36.0

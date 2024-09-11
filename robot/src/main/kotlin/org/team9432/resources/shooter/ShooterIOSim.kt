@@ -18,13 +18,11 @@ class ShooterIOSim: ShooterIO {
     private var leftAppliedVoltage = 0.0
     private var rightAppliedVoltage = 0.0
 
-
-
     override fun setSpeeds(speeds: DoubleArray) {
-        leftAppliedVoltage = MathUtil.clamp(leftPid.calculate(speeds[0])/2 + ff.calculate(leftPid.setpoint), -12.0, 12.0)
+        leftAppliedVoltage = MathUtil.clamp(leftPid.calculate(speeds[0]) / 2 + ff.calculate(leftPid.setpoint), -12.0, 12.0)
         leftSim.setInputVoltage(leftAppliedVoltage)
 
-        rightAppliedVoltage = MathUtil.clamp(rightPid.calculate(speeds[1])/2 + ff.calculate(rightPid.setpoint), -12.0, 12.0)
+        rightAppliedVoltage = MathUtil.clamp(rightPid.calculate(speeds[1]) / 2 + ff.calculate(rightPid.setpoint), -12.0, 12.0)
         rightSim.setInputVoltage(rightAppliedVoltage)
     }
 

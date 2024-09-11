@@ -16,7 +16,6 @@ interface ShooterIO {
         var rightAppliedVoltage: Double = 0.0
         var rightSupplyCurrentAmps: Double = 0.0
         var rightTempFahrenheit: Double = 0.0
-
     }
 
     val backReduction get() = 1.0

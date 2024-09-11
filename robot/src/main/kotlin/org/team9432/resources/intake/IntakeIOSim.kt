@@ -1,8 +1,6 @@
 package org.team9432.resources.intake
 
 import edu.wpi.first.math.MathUtil
-import edu.wpi.first.math.controller.PIDController
-import edu.wpi.first.math.controller.SimpleMotorFeedforward
 import edu.wpi.first.math.system.plant.DCMotor
 import edu.wpi.first.wpilibj.simulation.DCMotorSim
 import org.team9432.Robot

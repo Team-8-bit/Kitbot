@@ -5,23 +5,19 @@ import com.revrobotics.CANSparkLowLevel
 import com.revrobotics.CANSparkMax
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import org.littletonrobotics.junction.Logger
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.resource.Resource
-import org.littletonrobotics.junction.Logger
 
 
 var driveTrain: DifferentialDrive? = null
 
-
-object Drivetrain : Resource("Drivetrain"){
-
+object Drivetrain: Resource("Drivetrain") {
     val leftTopDriveMotor = CANSparkMax(12, CANSparkLowLevel.MotorType.kBrushless)
     val leftBottomDriveMotor = CANSparkMax(11, CANSparkLowLevel.MotorType.kBrushless)
 
     val rightTopDriveMotor = CANSparkMax(13, CANSparkLowLevel.MotorType.kBrushless)
     val rightBottomDriveMotor = CANSparkMax(14, CANSparkLowLevel.MotorType.kBrushless)
-
-
 
     init {
         leftTopDriveMotor.follow(leftBottomDriveMotor)
@@ -66,7 +62,6 @@ object Drivetrain : Resource("Drivetrain"){
         driveTrain?.arcadeDrive(speed, rotation, true)
     }
 
-
     fun log() {
         Logger.recordOutput("Drivetrain/LeftBottomMotor/Amps", leftBottomDriveMotor.outputCurrent)
         Logger.recordOutput("Drivetrain/LeftBottomMotor/Volts", leftBottomDriveMotor.appliedOutput)
@@ -95,8 +90,5 @@ object Drivetrain : Resource("Drivetrain"){
         rightTopDriveMotor.setIdleMode(mode)
         rightBottomDriveMotor.setIdleMode(mode)
     }
-
-
-
 
 }

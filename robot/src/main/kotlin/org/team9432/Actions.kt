@@ -31,7 +31,9 @@ object Actions {
         Intake.setState(Intake.State.INTAKE)
         delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
-        if (Robot.mode.isTeleop) { coroutineScope.launch { Controls.controller.rumbleDuration(1.seconds) }}
+        if (Robot.mode.isTeleop) {
+            coroutineScope.launch { Controls.controller.rumbleDuration(1.seconds) }
+        }
         Intake.setState(Intake.State.IDLE)
         Shooter.note = true
     }
@@ -47,7 +49,6 @@ object Actions {
         Intake.setState(Intake.State.IDLE)
         Shooter.note = false
     }
-
 
     fun startShooting() {
         Shooter.setState(Shooter.State.SHOOT)
