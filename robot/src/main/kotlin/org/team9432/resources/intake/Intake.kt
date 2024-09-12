@@ -5,7 +5,6 @@ import org.team9432.lib.Beambreak
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.resource.Resource
 import org.team9432.lib.util.simSwitch
-import org.team9432.resources.loader.Loader.State
 
 
 object Intake: Resource("Intake") {
@@ -41,4 +40,6 @@ object Intake: Resource("Intake") {
         trackState()
         Logger.recordOutput("Intake/State", state)
     }
+
+    fun isIntaking(): Boolean { return state == State.INTAKE }
 }

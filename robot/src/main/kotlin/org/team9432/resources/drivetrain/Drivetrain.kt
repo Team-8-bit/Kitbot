@@ -92,6 +92,8 @@ object Drivetrain {
 
         // Apply odometry update
         poseEstimator.update(rawGyroRotation, modulePositions)
+
+        Logger.recordOutput("Drive/Odometry", getPose())
     }
 
 

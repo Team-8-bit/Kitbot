@@ -4,7 +4,7 @@ import org.littletonrobotics.junction.Logger
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.resource.Resource
 import org.team9432.lib.util.simSwitch
-import org.team9432.resources.loader.Loader.State
+
 
 object Shooter: Resource("Shooter") {
     private val io = simSwitch(real = ShooterIONeo(), sim = ShooterIOSim())
@@ -39,4 +39,6 @@ object Shooter: Resource("Shooter") {
         trackState()
         Logger.recordOutput("Loader/State", state)
     }
+
+    fun isIntaking(): Boolean { return state == State.INTAKE }
 }

@@ -1,20 +1,18 @@
 @file:JvmName("Main") // set the compiled Java class name to "Main" rather than "MainKt"
 package org.team9432
 
-import com.revrobotics.CANSparkBase
+import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.RobotBase
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import org.littletonrobotics.junction.LogFileUtil
 import org.littletonrobotics.junction.Logger
 import org.littletonrobotics.junction.networktables.NT4Publisher
 import org.littletonrobotics.junction.wpilog.WPILOGReader
 import org.littletonrobotics.junction.wpilog.WPILOGWriter
+import org.team9432.auto.AutoChooser
 import org.team9432.lib.Library
 import org.team9432.lib.coroutines.LoggedCoroutineRobot
 import org.team9432.lib.coroutines.Team8BitRobot.Runtime.*
-import org.team9432.lib.resource.Action
 import org.team9432.oi.Controls
 import org.team9432.resources.drivetrain.Drivetrain
 import org.team9432.resources.intake.Intake
@@ -24,8 +22,6 @@ import org.team9432.resources.shooter.Shooter
 object Robot : LoggedCoroutineRobot() {
     val runtime = if (RobotBase.isReal()) REAL else SIM
 
-    private val autoChooser = SendableChooser<Action>()
-    
     override suspend fun init() {
 
         Logger.recordMetadata("ProjectName", "2024-KitBot") // Set a metadata value
@@ -68,13 +64,10 @@ object Robot : LoggedCoroutineRobot() {
 
         LEDs
 
+        AutoChooser
 
-//        autoChooser.addOption("Shoot Only") { Auto.onlyShoot() }
-//        autoChooser.addOption("Shoot And Drive") { Auto.shootAndDrive() }
-//        autoChooser.addOption("Basic Two Note") { Auto.basicTwoNote() }
-//        autoChooser.setDefaultOption("Shoot And Drive") { Auto.shootAndDrive() }
+        DriverStation.silenceJoystickConnectionWarning(true)
 
-        SmartDashboard.putData(autoChooser)
     }
 
     override suspend fun disabled() {
@@ -83,8 +76,16 @@ object Robot : LoggedCoroutineRobot() {
     }
 
     override suspend fun autonomous() {
-        super.autonomous()
-        RobotController.setAction(autoChooser.selected)
+        RobotController.setAction {
+            val selectedAuto = AutoChooser.getAuto()
+
+            if (selectedAuto == null) {
+                println("[Error] Auto was null")
+                return@setAction
+            }
+
+            selectedAuto.run()
+        }
     }
 
     override suspend fun teleop() {
