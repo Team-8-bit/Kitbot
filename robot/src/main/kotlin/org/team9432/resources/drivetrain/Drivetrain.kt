@@ -120,7 +120,7 @@ object Drivetrain {
     }
 
     fun runFieldRelative(speeds: ChassisSpeeds) {
-        runRawChassisSpeeds(ChassisSpeeds.fromFieldRelativeSpeeds(speeds, gyroInputs.yawPosition))
+        runRawChassisSpeeds(ChassisSpeeds.fromFieldRelativeSpeeds(speeds, rawGyroRotation))
     }
 
     /** Stops the drive.  */
