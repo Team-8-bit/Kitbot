@@ -16,8 +16,8 @@ object Intake: Resource("Intake") {
     val beambreak = Beambreak(9)
 
     enum class State(val getVoltage: () -> DoubleArray) {
-        INTAKE({ doubleArrayOf(4.0, 9.36) }),
-        LOAD({ doubleArrayOf(6.0, 0.0) }),
+        INTAKE({ doubleArrayOf(7.0, 10.0) }),
+        LOAD({ doubleArrayOf(6.0, 6.0) }),
         REVERSE({ doubleArrayOf(-4.0, 0.0) }),
         IDLE({ doubleArrayOf(0.0, 0.0) });
     }
@@ -33,6 +33,7 @@ object Intake: Resource("Intake") {
     override fun akitUpdate() {
         io.updateInputs(inputs)
         Logger.processInputs("Intake", inputs)
+        Logger.recordOutput("Intake/BeamBreak",beambreak.isTripped())
     }
 
     fun setState(state: State) {

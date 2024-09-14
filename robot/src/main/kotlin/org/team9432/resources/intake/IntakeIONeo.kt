@@ -6,8 +6,8 @@ import com.revrobotics.CANSparkMax
 import org.team9432.lib.util.temperatureFahrenheit
 
 class IntakeIONeo: IntakeIO {
-    private val motorBack = CANSparkMax(31, CANSparkLowLevel.MotorType.kBrushless)
-    private val motorFront = CANSparkMax(32, CANSparkLowLevel.MotorType.kBrushless)
+    private val motorBack = CANSparkMax(18, CANSparkLowLevel.MotorType.kBrushless)
+    private val motorFront = CANSparkMax(16, CANSparkLowLevel.MotorType.kBrushless)
 
     private val encoderBack = motorBack.encoder
     private val encoderFront = motorFront.encoder
@@ -15,11 +15,11 @@ class IntakeIONeo: IntakeIO {
     init {
         motorBack.inverted = false
         motorBack.enableVoltageCompensation(11.0)
-        motorBack.setSmartCurrentLimit(50)
+        motorBack.setSmartCurrentLimit(80)
         motorBack.idleMode = CANSparkBase.IdleMode.kBrake
         motorBack.burnFlash()
 
-        motorFront.inverted = false
+        motorFront.inverted = true
         motorFront.enableVoltageCompensation(11.0)
         motorFront.setSmartCurrentLimit(30)
         motorFront.idleMode = CANSparkBase.IdleMode.kBrake

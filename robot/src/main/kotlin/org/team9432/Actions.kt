@@ -52,12 +52,12 @@ object Actions {
 
     fun startShooting() {
         Shooter.setState(Shooter.State.SHOOT)
+        Loader.setState(Loader.State.SPEED)
     }
 
     suspend fun stopShooting() {
-        Loader.setState(Loader.State.LOAD)
         Intake.setState(Intake.State.LOAD)
-        delay(0.5.seconds)
+        Intake.beambreak.awaitClear()
         Loader.setState(Loader.State.IDLE)
         Shooter.setState(Shooter.State.IDLE)
         Intake.setState(Intake.State.IDLE)
