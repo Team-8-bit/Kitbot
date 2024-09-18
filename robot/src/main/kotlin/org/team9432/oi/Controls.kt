@@ -30,12 +30,13 @@ object Controls {
         controller.b
             .onTrue { RobotController.setAction { Actions.intake() } }
 
-        controller.a
+        controller.y
+            .onTrue { RobotController.resetRequests(); RobotController.setAction { Actions.idle() } }
+
+        controller.rightBumper
             .onTrue { RobotController.setAction { Actions.startShooting() } }
             .onFalse { RobotController.setAction { Actions.stopShooting() } }
 
-        controller.y
-            .onTrue { RobotController.resetRequests(); RobotController.setAction { Actions.idle() } }
 
         controller.leftBumper
             .onTrue { RobotController.setAction { Actions.groundIntake() } }
