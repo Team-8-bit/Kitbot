@@ -28,4 +28,8 @@ class GyroIOPigeon2: GyroIO {
         inputs.yawPosition = Rotation2d.fromDegrees(yaw.valueAsDouble)
         inputs.yawVelocityRadPerSec = Units.degreesToRadians(yawVelocity.valueAsDouble)
     }
+
+    override fun resetGyro() {
+        pigeon.reset()
+    }
 }

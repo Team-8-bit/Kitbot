@@ -27,8 +27,8 @@ object Controls {
         controller.x
             .onTrue { Actions.drop() }
 
-        controller.b
-            .onTrue { RobotController.setAction { Actions.intake() } }
+//        controller.b
+//            .onTrue { RobotController.setAction { Actions.intake() } }
 
         controller.y
             .onTrue { RobotController.resetRequests(); RobotController.setAction { Actions.idle() } }
@@ -37,6 +37,9 @@ object Controls {
             .onTrue { RobotController.setAction { Actions.startShooting() } }
             .onFalse { RobotController.setAction { Actions.stopShooting() } }
 
+
+        controller.b
+            .onTrue { Drivetrain.resetGyro() }
 
         controller.leftBumper
             .onTrue { RobotController.setAction { Actions.groundIntake() } }

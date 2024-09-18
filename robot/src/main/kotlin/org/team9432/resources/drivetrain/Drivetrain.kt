@@ -178,4 +178,8 @@ object Drivetrain {
         poseEstimator.addVisionMeasurement(visionPose, timestamp)
     }
 
+
+    fun resetGyro() {
+        gyroIO.resetGyro()
+    }
 }

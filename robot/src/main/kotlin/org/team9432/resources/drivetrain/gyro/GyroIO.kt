@@ -12,4 +12,6 @@ interface GyroIO {
     }
 
     fun updateInputs(inputs: GyroIOInputs) {}
+
+    fun resetGyro() {}
 }
