@@ -23,5 +23,6 @@ object AutoChooser {
         }
         OnlyShoot.addOptionToSelector(Selector)
         ShootDrive.addOptionToSelector(Selector)
+        TwoNote.addOptionToSelector(Selector)
     }
 }

@@ -8,17 +8,22 @@ import org.team9432.Actions
 import org.team9432.resources.drivetrain.Drivetrain
 import kotlin.time.Duration.Companion.seconds
 
-object ShootDrive: Auto {
+object TwoNote: Auto {
     override suspend fun run() {
         Actions.startShooting()
         delay(1.seconds)
         Actions.stopShooting()
         Drivetrain.runFieldRelative(ChassisSpeeds.fromFieldRelativeSpeeds(-1.0,0.0,0.0, Rotation2d.fromRotations(0.0)))
-        delay(2.seconds)
+        Actions.groundIntake()
+        Drivetrain.runFieldRelative(ChassisSpeeds.fromFieldRelativeSpeeds(1.0,0.0,0.0, Rotation2d.fromRotations(0.0)))
+        delay(1.625.seconds)
         Drivetrain.runFieldRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0.0,0.0,0.0, Rotation2d.fromRotations(0.0)))
+        Actions.startShooting()
+        delay(1.seconds)
+        Actions.stopShooting()
     }
 
     override fun addOptionToSelector(selector: SendableChooser<Auto>) {
-        selector.addOption("Shoot and Drive",this)
+        selector.addOption("2 Note",this)
     }
 }
