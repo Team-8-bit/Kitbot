@@ -13,9 +13,9 @@ object ShootDrive: Auto {
         Actions.startShooting()
         delay(1.seconds)
         Actions.stopShooting()
-        Drivetrain.runFieldRelative(ChassisSpeeds.fromFieldRelativeSpeeds(-1.0,0.0,0.0, Rotation2d.fromRotations(0.0)))
+        Drivetrain.runRawChassisSpeeds(ChassisSpeeds.fromRobotRelativeSpeeds(-1.0,0.0,0.0, Rotation2d.fromRotations(0.0)))
         delay(2.seconds)
-        Drivetrain.runFieldRelative(ChassisSpeeds.fromFieldRelativeSpeeds(0.0,0.0,0.0, Rotation2d.fromRotations(0.0)))
+        Drivetrain.runRawChassisSpeeds(ChassisSpeeds.fromRobotRelativeSpeeds(0.0,0.0,0.0, Rotation2d.fromRotations(0.0)))
     }
 
     override fun addOptionToSelector(selector: SendableChooser<Auto>) {

@@ -24,7 +24,7 @@ object Controls {
     private val ratelimitY = SlewRateLimiter(20.0)
 
     init {
-        controller.x
+        controller.a
             .onTrue { Actions.drop() }
 
 //        controller.b
@@ -38,8 +38,11 @@ object Controls {
             .onFalse { RobotController.setAction { Actions.stopShooting() } }
 
 
-        controller.b
+        controller.x
             .onTrue { Drivetrain.resetGyro() }
+
+        controller.b
+            .onTrue { Actions.outTake() }
 
         controller.leftBumper
             .onTrue { RobotController.setAction { Actions.groundIntake() } }

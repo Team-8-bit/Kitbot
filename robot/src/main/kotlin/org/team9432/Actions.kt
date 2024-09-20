@@ -64,6 +64,10 @@ object Actions {
         Shooter.note = false
     }
 
+    fun outTake(){
+        Intake.setState(Intake.State.REVERSE)
+    }
+
     fun idle() {
         Loader.setState(Loader.State.IDLE)
         Shooter.setState(Shooter.State.IDLE)
