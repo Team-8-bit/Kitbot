@@ -29,7 +29,7 @@ object Actions {
 
     suspend fun groundIntake() {
         Intake.setState(Intake.State.INTAKE)
-        delay(0.25.seconds)
+        //delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
         if (Robot.mode.isTeleop) {
             coroutineScope.launch { Controls.controller.rumbleDuration(1.seconds) }
@@ -66,6 +66,8 @@ object Actions {
 
     fun outTake(){
         Intake.setState(Intake.State.REVERSE)
+        Loader.setState(Loader.State.INTAKE)
+        Shooter.setState(Shooter.State.INTAKE)
     }
 
     fun idle() {
