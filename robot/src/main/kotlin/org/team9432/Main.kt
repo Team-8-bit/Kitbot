@@ -1,6 +1,7 @@
 @file:JvmName("Main") // set the compiled Java class name to "Main" rather than "MainKt"
 package org.team9432
 
+import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.RobotBase
@@ -76,16 +77,17 @@ object Robot : LoggedCoroutineRobot() {
     }
 
     override suspend fun autonomous() {
-        RobotController.setAction {
-            val selectedAuto = AutoChooser.getAuto()
-
-            if (selectedAuto == null) {
-                println("[Error] Auto was null")
-                return@setAction
-            }
-
-            selectedAuto.run()
-        }
+//        RobotController.setAction {
+//            val selectedAuto = AutoChooser.getAuto()
+//
+//            if (selectedAuto == null) {
+//                println("[Error] Auto was null")
+//                return@setAction
+//            }
+//
+//            selectedAuto.run()
+//        }
+        PathPlannerAuto("Example Auto").schedule()
     }
 
     override suspend fun teleop() {

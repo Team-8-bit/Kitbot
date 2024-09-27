@@ -1,5 +1,10 @@
 package org.team9432.resources.drivetrain
 
+import com.pathplanner.lib.auto.AutoBuilder
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig
+import com.pathplanner.lib.util.PIDConstants
+import com.pathplanner.lib.util.PathPlannerLogging
+import com.pathplanner.lib.util.ReplanningConfig
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
@@ -9,6 +14,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.kinematics.SwerveModulePosition
 import edu.wpi.first.math.kinematics.SwerveModuleState
 import edu.wpi.first.wpilibj.DriverStation
+import edu.wpi.first.wpilibj.DriverStation.Alliance
+import edu.wpi.first.wpilibj2.command.Subsystem
 import org.littletonrobotics.junction.AutoLogOutput
 import org.littletonrobotics.junction.Logger
 import org.team9432.lib.RobotPeriodicManager
@@ -21,6 +28,9 @@ import org.team9432.resources.drivetrain.module.Module
 import org.team9432.resources.drivetrain.module.ModuleIO
 import org.team9432.resources.drivetrain.module.ModuleIONeo
 import org.team9432.resources.drivetrain.module.ModuleIOSim
+import java.util.function.BooleanSupplier
+import java.util.function.Supplier
+
 
 object Drivetrain {
     private val gyroInputs: LoggedGyroIOInputs = LoggedGyroIOInputs()
@@ -44,7 +54,45 @@ object Drivetrain {
 
     private val poseEstimator: SwerveDrivePoseEstimator = SwerveDrivePoseEstimator(kinematics, rawGyroRotation, lastModulePositions, Pose2d())
 
+    private val subsystem: Subsystem = object : Subsystem {}
+
     init {
+
+        // Configure AutoBuilder for PathPlanner
+        AutoBuilder.configureHolonomic(
+            this::getPose,  // Robot pose supplier
+            this::setPose,  // Method to reset odometry (will be called if your auto has a starting pose)
+            { kinematics.toChassisSpeeds(*getModuleStates()) },  // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+            this::runRawChassisSpeeds,  // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+            HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+                PIDConstants(5.0, 0.0, 0.0),  // Translation PID constants
+                PIDConstants(5.0, 0.0, 0.0),  // Rotation PID constants
+                4.5,  // Max module speed, in m/s
+                0.4,  // Drive base radius in meters. Distance from robot center to furthest module.
+                ReplanningConfig() // Default path replanning config. See the API for the options here
+            ),
+            {
+                // Boolean supplier that controls when the path will be mirrored for the red alliance
+                // This will flip the path being followed to the red side of the field.
+                // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+                val alliance = DriverStation.getAlliance()
+                if (alliance.isPresent) {
+                    return@configureHolonomic alliance.get() == Alliance.Red
+                }
+                false
+            },
+            subsystem // Reference to this subsystem to set requirements
+        )
+
+        PathPlannerLogging.setLogActivePathCallback { activePath: List<Pose2d> ->
+            Logger.recordOutput(
+                "Odometry/Trajectory", *activePath.toTypedArray<Pose2d>()
+            )
+        }
+        PathPlannerLogging.setLogTargetPoseCallback { targetPose: Pose2d ->
+            Logger.recordOutput("Odometry/TrajectorySetpoint", targetPose)
+        }
+
         RobotPeriodicManager.startPeriodic { periodic() }
     }
 
@@ -93,7 +141,7 @@ object Drivetrain {
         // Apply odometry update
         poseEstimator.update(rawGyroRotation, modulePositions)
 
-        Logger.recordOutput("Drive/Odometry", getPose())
+        Logger.recordOutput("Odometry/Robot", getPose())
     }
 
 
