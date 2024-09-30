@@ -70,8 +70,20 @@ object Robot : LoggedCoroutineRobot() {
 
         LEDs
 
-        NamedCommands.registerCommand("Example", InstantCommand( {
-            println("Example")
+        NamedCommands.registerCommand("Intake", InstantCommand( {
+            coroutineScope.launch {
+                Actions.intake()
+            }
+        }))
+        NamedCommands.registerCommand("StartShooting", InstantCommand( {
+            coroutineScope.launch {
+                Actions.startShooting()
+            }
+        }))
+        NamedCommands.registerCommand("StopShooting", InstantCommand( {
+            coroutineScope.launch {
+                Actions.stopShooting()
+            }
         }))
 
         DriverStation.silenceJoystickConnectionWarning(true)
@@ -95,7 +107,7 @@ object Robot : LoggedCoroutineRobot() {
 //            selectedAuto.run()
 //        }
 
-        PathPlannerAuto("2 note (NOTE3)").schedule()
+        PathPlannerAuto("4 note (321)").schedule()
 
     }
 
