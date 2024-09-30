@@ -5,7 +5,7 @@
       "x": 1.356747884046616,
       "y": 5.521975096783879
     },
-    "rotation": 179.76087128093963
+    "rotation": 179.80757063472822
   },
   "command": {
     "type": "sequential",
@@ -15,6 +15,18 @@
           "type": "path",
           "data": {
             "pathName": "Subwoofer to NOTE3"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "NOTE3 to Subwoofer"
           }
         }
       ]

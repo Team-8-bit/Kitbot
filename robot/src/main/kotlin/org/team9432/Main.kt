@@ -1,16 +1,19 @@
 @file:JvmName("Main") // set the compiled Java class name to "Main" rather than "MainKt"
 package org.team9432
 
+import com.pathplanner.lib.auto.NamedCommands
 import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.RobotBase
+import edu.wpi.first.wpilibj2.command.CommandScheduler
+import edu.wpi.first.wpilibj2.command.InstantCommand
+import kotlinx.coroutines.launch
 import org.littletonrobotics.junction.LogFileUtil
 import org.littletonrobotics.junction.Logger
 import org.littletonrobotics.junction.networktables.NT4Publisher
 import org.littletonrobotics.junction.wpilog.WPILOGReader
 import org.littletonrobotics.junction.wpilog.WPILOGWriter
-import org.team9432.auto.AutoChooser
 import org.team9432.lib.Library
 import org.team9432.lib.coroutines.LoggedCoroutineRobot
 import org.team9432.lib.coroutines.Team8BitRobot.Runtime.*
@@ -20,8 +23,10 @@ import org.team9432.resources.intake.Intake
 import org.team9432.resources.loader.Loader
 import org.team9432.resources.shooter.Shooter
 
+
 object Robot : LoggedCoroutineRobot() {
     val runtime = if (RobotBase.isReal()) REAL else SIM
+    val Scheduler = CommandScheduler.getInstance()
 
     override suspend fun init() {
 
@@ -65,7 +70,9 @@ object Robot : LoggedCoroutineRobot() {
 
         LEDs
 
-        AutoChooser
+        NamedCommands.registerCommand("Example", InstantCommand( {
+            println("Example")
+        }))
 
         DriverStation.silenceJoystickConnectionWarning(true)
 
@@ -87,12 +94,16 @@ object Robot : LoggedCoroutineRobot() {
 //
 //            selectedAuto.run()
 //        }
-        PathPlannerAuto("Example Auto").schedule()
+
+        PathPlannerAuto("2 note (NOTE3)").schedule()
+
     }
 
-    override suspend fun teleop() {
-        super.teleop()
+    override fun autonomousPeriodic() {
+        Scheduler.run()
     }
+
+    override suspend fun teleop() {}
 
 
 }
