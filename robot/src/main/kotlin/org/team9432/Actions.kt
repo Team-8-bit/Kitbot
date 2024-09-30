@@ -31,6 +31,10 @@ object Actions {
         Intake.setState(Intake.State.INTAKE)
         //delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
+        if(Robot.isSimulated){
+            delay(0.5.seconds)
+            Intake.beambreak.setSimTripped()
+        }
         if (Robot.mode.isTeleop) {
             coroutineScope.launch { Controls.controller.rumbleDuration(1.seconds) }
         }
@@ -58,6 +62,10 @@ object Actions {
     suspend fun stopShooting() {
         Intake.setState(Intake.State.LOAD)
         Intake.beambreak.awaitClear()
+        if(Robot.isSimulated){
+            delay(0.75.seconds)
+            Intake.beambreak.setSimClear()
+        }
         Loader.setState(Loader.State.IDLE)
         Shooter.setState(Shooter.State.IDLE)
         Intake.setState(Intake.State.IDLE)
