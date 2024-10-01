@@ -15,7 +15,7 @@ class IntakeIONeo: IntakeIO {
     init {
         motorBack.inverted = false
         motorBack.enableVoltageCompensation(11.0)
-        motorBack.setSmartCurrentLimit(80)
+        motorBack.setSmartCurrentLimit(40)
         motorBack.idleMode = CANSparkBase.IdleMode.kBrake
         motorBack.burnFlash()
 

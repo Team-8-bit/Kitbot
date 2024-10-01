@@ -1,10 +1,10 @@
 package org.team9432.resources.intake
 
 import org.littletonrobotics.junction.Logger
-import org.team9432.lib.Beambreak
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.resource.Resource
 import org.team9432.lib.util.simSwitch
+import org.team9432.lib.wrappers.beambreak.LoggedBeambreak
 
 
 object Intake: Resource("Intake") {
@@ -13,7 +13,7 @@ object Intake: Resource("Intake") {
 
     private var state = State.IDLE
 
-    val beambreak = Beambreak(9)
+    val beambreak = LoggedBeambreak(9,"Intake/BeamBreak")
 
     enum class State(val getVoltage: () -> DoubleArray) {
         INTAKE({ doubleArrayOf(7.0, 10.0) }),
@@ -33,7 +33,7 @@ object Intake: Resource("Intake") {
     override fun akitUpdate() {
         io.updateInputs(inputs)
         Logger.processInputs("Intake", inputs)
-        Logger.recordOutput("Intake/BeamBreak",beambreak.isTripped())
+        //Logger.recordOutput("Intake/BeamBreak",beambreak.isTripped())
     }
 
     fun setState(state: State) {

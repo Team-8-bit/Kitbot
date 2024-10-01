@@ -31,6 +31,7 @@ object Actions {
         Intake.setState(Intake.State.INTAKE)
         //delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
+        delay(0.5.seconds)
         if(Robot.isSimulated){
             delay(0.5.seconds)
             Intake.beambreak.setSimTripped()
@@ -56,11 +57,12 @@ object Actions {
 
     fun startShooting() {
         Shooter.setState(Shooter.State.SHOOT)
-        Loader.setState(Loader.State.SPEED)
+        //Loader.setState(Loader.State.SPEED)
     }
 
     suspend fun stopShooting() {
         Intake.setState(Intake.State.LOAD)
+        Loader.setState(Loader.State.SPEED)
         Intake.beambreak.awaitClear()
         if(Robot.isSimulated){
             delay(0.75.seconds)

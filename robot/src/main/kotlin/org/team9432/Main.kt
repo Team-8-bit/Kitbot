@@ -1,11 +1,15 @@
 @file:JvmName("Main") // set the compiled Java class name to "Main" rather than "MainKt"
 package org.team9432
 
+import com.pathplanner.lib.auto.AutoBuilder
 import com.pathplanner.lib.auto.NamedCommands
 import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.RobotBase
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import kotlinx.coroutines.launch
@@ -27,6 +31,7 @@ import org.team9432.resources.shooter.Shooter
 object Robot : LoggedCoroutineRobot() {
     val runtime = if (RobotBase.isReal()) REAL else SIM
     val Scheduler = CommandScheduler.getInstance()
+    lateinit var autoChooser: SendableChooser<Command>
 
     override suspend fun init() {
 
@@ -72,7 +77,7 @@ object Robot : LoggedCoroutineRobot() {
 
         NamedCommands.registerCommand("Intake", InstantCommand( {
             coroutineScope.launch {
-                Actions.intake()
+                Actions.groundIntake()
             }
         }))
         NamedCommands.registerCommand("StartShooting", InstantCommand( {
@@ -85,6 +90,11 @@ object Robot : LoggedCoroutineRobot() {
                 Actions.stopShooting()
             }
         }))
+
+
+        autoChooser = AutoBuilder.buildAutoChooser()
+
+        SmartDashboard.putData("Auto Chooser", autoChooser);
 
         DriverStation.silenceJoystickConnectionWarning(true)
 
@@ -107,7 +117,9 @@ object Robot : LoggedCoroutineRobot() {
 //            selectedAuto.run()
 //        }
 
-        PathPlannerAuto("4 note (321)").schedule()
+        //PathPlannerAuto("2 note (NOTE3)").schedule()
+        autoChooser.selected.schedule()
+
 
     }
 
