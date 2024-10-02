@@ -5,6 +5,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig
 import com.pathplanner.lib.util.PIDConstants
 import com.pathplanner.lib.util.PathPlannerLogging
 import com.pathplanner.lib.util.ReplanningConfig
+import edu.wpi.first.math.Matrix
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
@@ -13,6 +14,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.kinematics.SwerveModulePosition
 import edu.wpi.first.math.kinematics.SwerveModuleState
+import edu.wpi.first.math.numbers.N1
+import edu.wpi.first.math.numbers.N3
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj2.command.Subsystem
@@ -28,8 +31,6 @@ import org.team9432.resources.drivetrain.module.Module
 import org.team9432.resources.drivetrain.module.ModuleIO
 import org.team9432.resources.drivetrain.module.ModuleIONeo
 import org.team9432.resources.drivetrain.module.ModuleIOSim
-import java.util.function.BooleanSupplier
-import java.util.function.Supplier
 
 
 object Drivetrain {
@@ -68,7 +69,7 @@ object Drivetrain {
                 PIDConstants(5.0, 0.0, 0.0),  // Translation PID constants
                 PIDConstants(4.0, 0.0, 0.0),  // Rotation PID constants
                 4.5,  // Max module speed, in m/s
-                0.4,  // Drive base radius in meters. Distance from robot center to furthest module.
+                0.3727,  // Drive base radius in meters. Distance from robot center to furthest module. // full number 0.3726806290243699
                 ReplanningConfig() // Default path replanning config. See the API for the options here
             ),
             {
@@ -222,8 +223,8 @@ object Drivetrain {
      * @param visionPose The pose of the robot as measured by the vision camera.
      * @param timestamp The timestamp of the vision measurement in seconds.
      */
-    fun addVisionMeasurement(visionPose: Pose2d?, timestamp: Double) {
-        poseEstimator.addVisionMeasurement(visionPose, timestamp)
+    fun addVisionMeasurement(visionPose: Pose2d?, timestamp: Double,visionMeasurementStdDevs: Matrix<N3, N1>) {
+        poseEstimator.addVisionMeasurement(visionPose, timestamp,visionMeasurementStdDevs)
     }
 
 

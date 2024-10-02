@@ -3,7 +3,6 @@ package org.team9432
 
 import com.pathplanner.lib.auto.AutoBuilder
 import com.pathplanner.lib.auto.NamedCommands
-import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.PowerDistribution
 import edu.wpi.first.wpilibj.RobotBase
@@ -22,6 +21,7 @@ import org.team9432.lib.Library
 import org.team9432.lib.coroutines.LoggedCoroutineRobot
 import org.team9432.lib.coroutines.Team8BitRobot.Runtime.*
 import org.team9432.oi.Controls
+import org.team9432.resources.Vision
 import org.team9432.resources.drivetrain.Drivetrain
 import org.team9432.resources.intake.Intake
 import org.team9432.resources.loader.Loader
@@ -70,6 +70,8 @@ object Robot : LoggedCoroutineRobot() {
         Loader
         Drivetrain
         Intake
+
+        Vision
 
         Controls
 
