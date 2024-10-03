@@ -21,13 +21,13 @@ class ShooterIONeo: ShooterIO {
     init {
         motorLeft.inverted = true
         motorLeft.enableVoltageCompensation(12.0)
-        motorLeft.setSmartCurrentLimit(70)
+        motorLeft.setSmartCurrentLimit(40)
         motorLeft.idleMode = CANSparkBase.IdleMode.kCoast
         motorLeft.burnFlash()
 
         motorRight.inverted = false
         motorRight.enableVoltageCompensation(12.0)
-        motorRight.setSmartCurrentLimit(70)
+        motorRight.setSmartCurrentLimit(40)
         motorRight.idleMode = CANSparkBase.IdleMode.kCoast
         motorRight.burnFlash()
     }

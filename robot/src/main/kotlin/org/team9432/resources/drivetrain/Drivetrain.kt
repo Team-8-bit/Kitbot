@@ -5,7 +5,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig
 import com.pathplanner.lib.util.PIDConstants
 import com.pathplanner.lib.util.PathPlannerLogging
 import com.pathplanner.lib.util.ReplanningConfig
-import edu.wpi.first.math.Matrix
+import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
@@ -14,13 +14,12 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.kinematics.SwerveModulePosition
 import edu.wpi.first.math.kinematics.SwerveModuleState
-import edu.wpi.first.math.numbers.N1
-import edu.wpi.first.math.numbers.N3
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj2.command.Subsystem
 import org.littletonrobotics.junction.AutoLogOutput
 import org.littletonrobotics.junction.Logger
+import org.team9432.LimelightHelpers
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.util.SwerveUtil
 import org.team9432.lib.util.simSwitch
@@ -66,9 +65,9 @@ object Drivetrain {
             { kinematics.toChassisSpeeds(*getModuleStates()) },  // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::runRawChassisSpeeds,  // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                PIDConstants(5.0, 0.0, 0.0),  // Translation PID constants
+                PIDConstants(4.0, 0.0, 0.0),  // Translation PID constants
                 PIDConstants(4.0, 0.0, 0.0),  // Rotation PID constants
-                4.5,  // Max module speed, in m/s
+                4.0,  // Max module speed, in m/s
                 0.3727,  // Drive base radius in meters. Distance from robot center to furthest module. // full number 0.3726806290243699
                 ReplanningConfig() // Default path replanning config. See the API for the options here
             ),
@@ -141,6 +140,24 @@ object Drivetrain {
 
         // Apply odometry update
         poseEstimator.update(rawGyroRotation, modulePositions)
+
+        LimelightHelpers.SetRobotOrientation(
+            "limelight",
+            poseEstimator.estimatedPosition.rotation.degrees,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        )
+        val mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight")
+
+        poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 9999999.0));
+        if (mt2 != null) {
+            poseEstimator.addVisionMeasurement(
+                mt2.pose,
+                mt2.timestampSeconds)
+        };
 
         Logger.recordOutput("Odometry/Robot", getPose())
     }
@@ -223,8 +240,8 @@ object Drivetrain {
      * @param visionPose The pose of the robot as measured by the vision camera.
      * @param timestamp The timestamp of the vision measurement in seconds.
      */
-    fun addVisionMeasurement(visionPose: Pose2d?, timestamp: Double,visionMeasurementStdDevs: Matrix<N3, N1>) {
-        poseEstimator.addVisionMeasurement(visionPose, timestamp,visionMeasurementStdDevs)
+    fun addVisionMeasurement(visionPose: Pose2d?, timestamp: Double) {
+        poseEstimator.addVisionMeasurement(visionPose, timestamp)
     }
 
 

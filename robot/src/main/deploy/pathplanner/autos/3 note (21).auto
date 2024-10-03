@@ -54,12 +54,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.0
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "StopShooting"
@@ -93,12 +87,6 @@
           "type": "path",
           "data": {
             "pathName": "NOTE1 to Subwoofer"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.0
           }
         },
         {
