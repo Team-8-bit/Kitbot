@@ -21,6 +21,7 @@ import org.littletonrobotics.junction.AutoLogOutput
 import org.littletonrobotics.junction.Logger
 import org.team9432.LimelightHelpers
 import org.team9432.lib.RobotPeriodicManager
+import org.team9432.lib.constants.EvergreenFieldConstants.isOnField
 import org.team9432.lib.util.SwerveUtil
 import org.team9432.lib.util.simSwitch
 import org.team9432.resources.drivetrain.gyro.GyroIO
@@ -61,7 +62,7 @@ object Drivetrain {
         // Configure AutoBuilder for PathPlanner
         AutoBuilder.configureHolonomic(
             this::getPose,  // Robot pose supplier
-            this::setPose,  // Method to reset odometry (will be called if your auto has a starting pose)
+            {},  // Method to reset odometry (will be called if your auto has a starting pose)
             { kinematics.toChassisSpeeds(*getModuleStates()) },  // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::runRawChassisSpeeds,  // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
@@ -143,7 +144,7 @@ object Drivetrain {
 
         LimelightHelpers.SetRobotOrientation(
             "limelight",
-            poseEstimator.estimatedPosition.rotation.degrees,
+            rawGyroRotation.degrees,
             0.0,
             0.0,
             0.0,
@@ -153,7 +154,7 @@ object Drivetrain {
         val mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight")
 
         poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 9999999.0));
-        if (mt2 != null) {
+        if (mt2 != null && mt2.pose.isOnField() && mt2.tagCount > 0) {
             poseEstimator.addVisionMeasurement(
                 mt2.pose,
                 mt2.timestampSeconds)

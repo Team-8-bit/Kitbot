@@ -17,7 +17,7 @@ class GyroIOPigeon2: GyroIO {
 
     init {
         pigeon.configurator.apply(Pigeon2Configuration())
-        pigeon.configurator.setYaw(0.0)
+        pigeon.configurator.setYaw(180.0)
         yaw.setUpdateFrequency(100.0)
         yawVelocity.setUpdateFrequency(100.0)
         pigeon.optimizeBusUtilization()
