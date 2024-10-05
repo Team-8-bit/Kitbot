@@ -48,21 +48,21 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "NOTE1 to Subwoofer"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "StartShooting"
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "NOTE1 to Subwoofer"
+          }
+        },
+        {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.0
           }
         },
         {
@@ -90,21 +90,21 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "NOTE3 to Subwoofer"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "StartShooting"
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "NOTE3 to Subwoofer"
+          }
+        },
+        {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.0
           }
         },
         {
@@ -132,21 +132,21 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "NOTE2 to Subwoofer"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "StartShooting"
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "NOTE2 to Subwoofer"
+          }
+        },
+        {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.0
           }
         },
         {

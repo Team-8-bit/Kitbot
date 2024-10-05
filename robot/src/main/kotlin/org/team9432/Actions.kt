@@ -29,7 +29,7 @@ object Actions {
 
     suspend fun groundIntake() {
         Intake.setState(Intake.State.INTAKE)
-        //delay(0.25.seconds)
+        delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
         delay(0.5.seconds)
         if(Robot.isSimulated){

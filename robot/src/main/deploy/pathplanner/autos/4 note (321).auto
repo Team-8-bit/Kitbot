@@ -30,6 +30,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Intake"
@@ -42,6 +48,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "StartShooting"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "NOTE3 to Subwoofer"
@@ -50,19 +62,13 @@
         {
           "type": "named",
           "data": {
-            "name": "StartShooting"
+            "name": "StopShooting"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopShooting"
+            "waitTime": 0.25
           }
         },
         {
@@ -78,6 +84,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "StartShooting"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "NOTE2 to Subwoofer"
@@ -86,19 +98,13 @@
         {
           "type": "named",
           "data": {
-            "name": "StartShooting"
+            "name": "StopShooting"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopShooting"
+            "waitTime": 0.25
           }
         },
         {
@@ -114,21 +120,15 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "NOTE1 to Subwoofer"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "StartShooting"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 0.5
+            "pathName": "NOTE1 to Subwoofer"
           }
         },
         {

@@ -43,7 +43,7 @@ object Robot : LoggedCoroutineRobot() {
 
         when (runtime) {
             REAL -> {
-                Logger.addDataReceiver(WPILOGWriter()) // Log to a USB stick ("/U/logs")
+                //Logger.addDataReceiver(WPILOGWriter()) // Log to a USB stick ("/U/logs")
                 Logger.addDataReceiver(NT4Publisher()) // Publish data to NetworkTables
                 PowerDistribution(1, PowerDistribution.ModuleType.kRev) // Enables power distribution logging
             }
