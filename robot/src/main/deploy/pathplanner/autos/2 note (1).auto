@@ -2,15 +2,39 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.356747884046616,
-      "y": 5.521975096783879
+      "x": 1.35,
+      "y": 5.5
     },
-    "rotation": 179.80757063472822
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "StartShooting"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShooting"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -24,27 +48,15 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.25
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "NOTE1 to Subwoofer"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "StartShooting"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 0.5
+            "pathName": "NOTE1 to Subwoofer"
           }
         },
         {

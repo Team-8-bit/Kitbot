@@ -66,7 +66,7 @@ object Drivetrain {
             { kinematics.toChassisSpeeds(*getModuleStates()) },  // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::runRawChassisSpeeds,  // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                PIDConstants(4.0, 0.0, 0.0),  // Translation PID constants
+                PIDConstants(3.0, 0.0, 0.0),  // Translation PID constants
                 PIDConstants(4.0, 0.0, 0.0),  // Rotation PID constants
                 4.0,  // Max module speed, in m/s
                 0.3727,  // Drive base radius in meters. Distance from robot center to furthest module. // full number 0.3726806290243699
@@ -152,13 +152,18 @@ object Drivetrain {
             0.0
         )
         val mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight")
+        Logger.recordOutput("Odometry/MT2Connected",mt2 != null)
+
 
         poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 9999999.0));
+        if (mt2 != null) {
+            Logger.recordOutput("Odometry/TagsSeen",mt2.tagCount)
+        }
         if (mt2 != null && mt2.pose.isOnField() && mt2.tagCount > 0) {
             poseEstimator.addVisionMeasurement(
                 mt2.pose,
                 mt2.timestampSeconds)
-        };
+        }
 
         Logger.recordOutput("Odometry/Robot", getPose())
     }

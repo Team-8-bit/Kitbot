@@ -18,39 +18,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "StopShooting"
-          }
-        },
-        {
           "type": "wait",
           "data": {
             "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Subwoofer to NOTE2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StartShooting"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "NOTE2 to Subwoofer"
           }
         },
         {
@@ -87,6 +57,42 @@
           "type": "path",
           "data": {
             "pathName": "NOTE1 to Subwoofer"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopShooting"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Subwoofer to NOTE2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StartShooting"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "NOTE2 to Subwoofer"
           }
         },
         {
