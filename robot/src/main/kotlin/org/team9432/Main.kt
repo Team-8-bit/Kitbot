@@ -25,6 +25,7 @@ import org.team9432.resources.drivetrain.Drivetrain
 import org.team9432.resources.intake.Intake
 import org.team9432.resources.loader.Loader
 import org.team9432.resources.shooter.Shooter
+import org.team9432.resources.vision.Vision
 
 
 object Robot : LoggedCoroutineRobot() {
@@ -69,6 +70,8 @@ object Robot : LoggedCoroutineRobot() {
         Loader
         Drivetrain
         Intake
+
+        Vision
 
 
         Controls

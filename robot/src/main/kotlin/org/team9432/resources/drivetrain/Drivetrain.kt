@@ -5,7 +5,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig
 import com.pathplanner.lib.util.PIDConstants
 import com.pathplanner.lib.util.PathPlannerLogging
 import com.pathplanner.lib.util.ReplanningConfig
-import edu.wpi.first.math.VecBuilder
+import edu.wpi.first.math.Matrix
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
@@ -14,6 +14,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.kinematics.SwerveModulePosition
 import edu.wpi.first.math.kinematics.SwerveModuleState
+import edu.wpi.first.math.numbers.N1
+import edu.wpi.first.math.numbers.N3
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj2.command.Subsystem
@@ -62,12 +64,12 @@ object Drivetrain {
         // Configure AutoBuilder for PathPlanner
         AutoBuilder.configureHolonomic(
             this::getPose,  // Robot pose supplier
-            {},  // Method to reset odometry (will be called if your auto has a starting pose)
+            this::setPose,  // Method to reset odometry (will be called if your auto has a starting pose)
             { kinematics.toChassisSpeeds(*getModuleStates()) },  // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::runRawChassisSpeeds,  // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                PIDConstants(0.0015, 0.0, 0.05),  // Translation PID constants
-                PIDConstants(0.01, 0.0, 0.0),  // Rotation PID constants
+                PIDConstants(8.0, 0.0, 0.0),  // Translation PID constants
+                PIDConstants(8.0, 0.0, 0.0),  // Rotation PID constants
                 4.0,  // Max module speed, in m/s
                 0.3727,  // Drive base radius in meters. Distance from robot center to furthest module. // full number 0.3726806290243699
                 ReplanningConfig() // Default path replanning config. See the API for the options here
@@ -155,14 +157,14 @@ object Drivetrain {
         Logger.recordOutput("Odometry/MT2Connected",mt2 != null)
 
 
-        poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 9999999.0));
+//        poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 9999999.0));
         if (mt2 != null) {
             Logger.recordOutput("Odometry/TagsSeen",mt2.tagCount)
         }
         if (mt2 != null && mt2.pose.isOnField() && mt2.tagCount > 0) {
-            poseEstimator.addVisionMeasurement(
-                mt2.pose,
-                mt2.timestampSeconds)
+//            poseEstimator.addVisionMeasurement(
+//                mt2.pose,
+//                mt2.timestampSeconds)
         }
 
         Logger.recordOutput("Odometry/Robot", getPose())
@@ -246,8 +248,8 @@ object Drivetrain {
      * @param visionPose The pose of the robot as measured by the vision camera.
      * @param timestamp The timestamp of the vision measurement in seconds.
      */
-    fun addVisionMeasurement(visionPose: Pose2d?, timestamp: Double) {
-        poseEstimator.addVisionMeasurement(visionPose, timestamp)
+    fun addVisionMeasurement(visionPose: Pose2d?, timestamp: Double, stdDevs: Matrix<N3, N1>) {
+        poseEstimator.addVisionMeasurement(visionPose, timestamp, stdDevs)
     }
 
 
