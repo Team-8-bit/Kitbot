@@ -13,14 +13,14 @@ object VisionConstants {
     val robotToCamera
         get() = Transform3d(
             Translation3d(
-                Units.inchesToMeters(5.875),
-                -Units.inchesToMeters(8.875),
-                Units.inchesToMeters(8.5)
+                Units.inchesToMeters(0.0),
+                Units.inchesToMeters(0.0),
+                Units.inchesToMeters(0.0)
             ),
             Rotation3d(
                 0.0,
-                -Math.toRadians(28.125),
-                Math.toRadians(6.920208)
+                0.0,
+                0.0
             )
         )
 
@@ -28,5 +28,5 @@ object VisionConstants {
     val multiTagStdDevs: Matrix<N3, N1> = VecBuilder.fill(0.025, 0.025, 3.0)
     val maxStandardDeviations: Matrix<N3, N1> = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE)
 
-    const val CAMERA_NAME = "Limelight" // It's not actually a limelight
+    const val CAMERA_NAME = "Camera"
 }
