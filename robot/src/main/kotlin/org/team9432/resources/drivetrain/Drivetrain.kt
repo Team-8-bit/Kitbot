@@ -66,8 +66,8 @@ object Drivetrain {
             { kinematics.toChassisSpeeds(*getModuleStates()) },  // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::runRawChassisSpeeds,  // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                PIDConstants(3.0, 0.0, 0.0),  // Translation PID constants
-                PIDConstants(4.0, 0.0, 0.0),  // Rotation PID constants
+                PIDConstants(0.0015, 0.0, 0.05),  // Translation PID constants
+                PIDConstants(0.01, 0.0, 0.0),  // Rotation PID constants
                 4.0,  // Max module speed, in m/s
                 0.3727,  // Drive base radius in meters. Distance from robot center to furthest module. // full number 0.3726806290243699
                 ReplanningConfig() // Default path replanning config. See the API for the options here
