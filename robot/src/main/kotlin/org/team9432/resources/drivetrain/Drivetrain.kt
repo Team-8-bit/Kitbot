@@ -65,7 +65,7 @@ object Drivetrain {
         // Configure AutoBuilder for PathPlanner
         AutoBuilder.configureHolonomic(
             this::getPose,  // Robot pose supplier
-            {},  // Method to reset odometry (will be called if your auto has a starting pose)
+            this::setPose,  // Method to reset odometry (will be called if your auto has a starting pose)
             { kinematics.toChassisSpeeds(*getModuleStates()) },  // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::runRawChassisSpeeds,  // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
