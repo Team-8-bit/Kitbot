@@ -334,3 +334,5 @@ bin/
 /robot/networktables.json
 /robot/simgui.json
 /robot/simgui-ds.json
+/robot/src/main/kotlin/org/team9432/generated/
+/robot/src/main/kotlin/org/team9432/BuildConstants.kt

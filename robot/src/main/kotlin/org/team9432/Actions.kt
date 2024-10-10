@@ -2,13 +2,11 @@ package org.team9432
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.team9432.lib.coroutines.CoroutineRobot
-import org.team9432.lib.coroutines.RobotScope
-import org.team9432.lib.coroutines.await
+import org.team9432.Robot.coroutineScope
 import org.team9432.oi.Controls
-import org.team9432.resources.Intake
-import org.team9432.resources.Loader
-import org.team9432.resources.Shooter
+import org.team9432.resources.intake.Intake
+import org.team9432.resources.loader.Loader
+import org.team9432.resources.shooter.Shooter
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -20,8 +18,8 @@ object Actions {
         delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
         Intake.beambreak.awaitClear()
-        if (Robot.mode == CoroutineRobot.Mode.TELEOP) {
-            RobotScope.launch { Controls.controller.rumbleDuration(1.seconds) }
+        if (Robot.mode.isTeleop) {
+            coroutineScope.launch { Controls.controller.rumbleDuration(1.seconds) }
         }
         Shooter.setState(Shooter.State.IDLE)
         Loader.setState(Loader.State.IDLE)
@@ -33,7 +31,14 @@ object Actions {
         Intake.setState(Intake.State.INTAKE)
         delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
-        if (Robot.mode == CoroutineRobot.Mode.TELEOP) { RobotScope.launch { Controls.controller.rumbleDuration(1.seconds) }}
+        delay(0.5.seconds)
+        if(Robot.isSimulated){
+            delay(0.5.seconds)
+            Intake.beambreak.setSimTripped()
+        }
+        if (Robot.mode.isTeleop) {
+            coroutineScope.launch { Controls.controller.rumbleDuration(1.seconds) }
+        }
         Intake.setState(Intake.State.IDLE)
         Shooter.note = true
     }
@@ -50,19 +55,29 @@ object Actions {
         Shooter.note = false
     }
 
-
     fun startShooting() {
         Shooter.setState(Shooter.State.SHOOT)
+        //Loader.setState(Loader.State.SPEED)
     }
 
     suspend fun stopShooting() {
-        Loader.setState(Loader.State.LOAD)
         Intake.setState(Intake.State.LOAD)
-        delay(0.5.seconds)
+        Loader.setState(Loader.State.SPEED)
+        Intake.beambreak.awaitClear()
+        if(Robot.isSimulated){
+            delay(0.75.seconds)
+            Intake.beambreak.setSimClear()
+        }
         Loader.setState(Loader.State.IDLE)
         Shooter.setState(Shooter.State.IDLE)
         Intake.setState(Intake.State.IDLE)
         Shooter.note = false
+    }
+
+    fun outTake(){
+        Intake.setState(Intake.State.REVERSE)
+        Loader.setState(Loader.State.INTAKE)
+        Shooter.setState(Shooter.State.INTAKE)
     }
 
     fun idle() {
