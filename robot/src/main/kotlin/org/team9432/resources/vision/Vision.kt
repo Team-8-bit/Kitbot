@@ -55,6 +55,8 @@ object Vision {
         val timestamp = estimatedRobotPose.timestampSeconds
         val stdDevs: Matrix<N3, N1> = getEstimationStdDevs(estimatedRobotPose)
 
+        Logger.recordOutput("Vision/3dPose",estimatedRobotPose.estimatedPose)
+
         Drivetrain.addVisionMeasurement(visionPose, timestamp, stdDevs)
     }
 
