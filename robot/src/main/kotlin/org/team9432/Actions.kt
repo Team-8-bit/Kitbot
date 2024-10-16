@@ -31,7 +31,7 @@ object Actions {
         Intake.setState(Intake.State.INTAKE)
         delay(0.25.seconds)
         Intake.beambreak.awaitTripped()
-        delay(0.5.seconds)
+        delay(0.25.seconds)
         if(Robot.isSimulated){
             delay(0.5.seconds)
             Intake.beambreak.setSimTripped()

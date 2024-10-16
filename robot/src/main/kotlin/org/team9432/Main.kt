@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import kotlinx.coroutines.launch
 import org.littletonrobotics.junction.LogFileUtil
+import org.littletonrobotics.junction.LogTable
 import org.littletonrobotics.junction.Logger
 import org.littletonrobotics.junction.networktables.NT4Publisher
 import org.littletonrobotics.junction.wpilog.WPILOGReader
@@ -41,6 +42,7 @@ object Robot : LoggedCoroutineRobot() {
         Logger.recordMetadata("GIT_BRANCH", GIT_BRANCH)
         Logger.recordMetadata("BUILD_DATE", BUILD_DATE)
         Logger.recordMetadata("DIRTY", if (DIRTY == 1) "true" else "false")
+        LogTable.disableProtobufWarning()
 
         when (runtime) {
             REAL -> {
@@ -131,6 +133,10 @@ object Robot : LoggedCoroutineRobot() {
     }
 
     override suspend fun teleop() {}
+
+    override fun disabledInit() {
+        coroutineScope.launch { RobotController.resetRequests() }
+    }
 
 
 }

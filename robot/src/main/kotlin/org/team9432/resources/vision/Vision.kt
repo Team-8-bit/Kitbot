@@ -1,6 +1,7 @@
 package org.team9432.resources.vision
 
 import edu.wpi.first.math.Matrix
+import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.geometry.Pose3d
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
@@ -35,7 +36,7 @@ object Vision {
 
     private fun periodic() {
         io.updateInputs(inputs)
-        Logger.processInputs("Vision", inputs)
+        //Logger.processInputs("Vision", inputs)
 
         Logger.recordOutput("Vision/Connected", inputs.isConnected)
         Logger.recordOutput("Vision/Enabled", isEnabled)
@@ -43,6 +44,7 @@ object Vision {
 
         applyToPoseEstimator(inputs.results)
     }
+    val tagStdDevs: Matrix<N3, N1> = VecBuilder.fill(0.4, 0.4, 1.0)
 
     private fun applyToPoseEstimator(result: PhotonPipelineResult) {
         // Get the estimated position or return
@@ -74,20 +76,26 @@ object Vision {
             tagPose.get().toPose2d().translation.getDistance(estimatedPose2d.translation)
         }.filterNotNull().average()
 
-        return when {
-            numTags == 0 -> return VisionConstants.singleTagStdDevs
-            numTags == 1 -> {
-                if (avgDist > 5) VisionConstants.maxStandardDeviations
-                else VisionConstants.singleTagStdDevs.times(1 + (avgDist * avgDist) / 30)
-            }
-
-            numTags > 1 -> {
-                if (avgDist > 7) VisionConstants.maxStandardDeviations
-                else VisionConstants.multiTagStdDevs
-            }
-
-            else -> VisionConstants.maxStandardDeviations
+        var deviation = tagStdDevs.times(avgDist * 0.5)
+        if (estimatedPose.targetsUsed.size == 1) {
+            deviation = deviation.times(2.0)
         }
+
+            return deviation
+//        when {
+//            numTags == 0 -> return VisionConstants.singleTagStdDevs
+//            numTags == 1 -> {
+//                if (avgDist > 5) VisionConstants.maxStandardDeviations
+//                else VisionConstants.singleTagStdDevs.times(1 + (avgDist * avgDist) / 30)
+//            }
+//
+//            numTags > 1 -> {
+//                if (avgDist > 7) VisionConstants.maxStandardDeviations
+//                else VisionConstants.multiTagStdDevs
+//            }
+//
+//            else -> VisionConstants.maxStandardDeviations
+//        }
     }
 
     /** Check that the given position is close to the floor and within the field walls. */

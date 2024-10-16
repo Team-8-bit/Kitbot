@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj2.command.Subsystem
 import org.littletonrobotics.junction.AutoLogOutput
 import org.littletonrobotics.junction.Logger
-import org.team9432.LimelightHelpers
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.constants.EvergreenFieldConstants.isOnField
 import org.team9432.lib.util.SwerveUtil
@@ -69,8 +68,8 @@ object Drivetrain {
             { kinematics.toChassisSpeeds(*getModuleStates()) },  // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::runRawChassisSpeeds,  // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                PIDConstants(0.0015, 0.0, 0.05),  // Translation PID constants
-                PIDConstants(0.01, 0.0, 0.0),  // Rotation PID constants
+                PIDConstants(4.0, 0.0, 0.0),  // Translation PID constants
+                PIDConstants(2.0, 0.0, 0.0),  // Rotation PID constants
                 4.0,  // Max module speed, in m/s
                 0.3727,  // Drive base radius in meters. Distance from robot center to furthest module. // full number 0.3726806290243699
                 ReplanningConfig() // Default path replanning config. See the API for the options here
@@ -144,29 +143,6 @@ object Drivetrain {
 
         // Apply odometry update
         poseEstimator.update(rawGyroRotation, modulePositions)
-
-        LimelightHelpers.SetRobotOrientation(
-            "limelight",
-            rawGyroRotation.degrees,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        )
-        val mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight")
-        Logger.recordOutput("Odometry/MT2Connected",mt2 != null)
-
-
-        poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 9999999.0));
-        if (mt2 != null) {
-            Logger.recordOutput("Odometry/TagsSeen",mt2.tagCount)
-        }
-        if (mt2 != null && mt2.pose.isOnField() && mt2.tagCount > 0) {
-            poseEstimator.addVisionMeasurement(
-                mt2.pose,
-                mt2.timestampSeconds)
-        }
 
         Logger.recordOutput("Odometry/Robot", getPose())
     }
