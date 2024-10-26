@@ -22,6 +22,7 @@ import org.team9432.lib.Library
 import org.team9432.lib.coroutines.LoggedCoroutineRobot
 import org.team9432.lib.coroutines.Team8BitRobot.Runtime.*
 import org.team9432.oi.Controls
+import org.team9432.oi.GameControls
 import org.team9432.resources.drivetrain.Drivetrain
 import org.team9432.resources.intake.Intake
 import org.team9432.resources.loader.Loader
@@ -76,7 +77,8 @@ object Robot : LoggedCoroutineRobot() {
         Vision
 
 
-        Controls
+        //Controls
+        GameControls
 
         LEDs
 
@@ -109,6 +111,7 @@ object Robot : LoggedCoroutineRobot() {
         super.disabled()
         RobotController.resetRequests()
     }
+
 
     override suspend fun autonomous() {
 //        RobotController.setAction {

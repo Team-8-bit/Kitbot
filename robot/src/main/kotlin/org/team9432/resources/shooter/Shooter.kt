@@ -1,6 +1,7 @@
 package org.team9432.resources.shooter
 
 import org.littletonrobotics.junction.Logger
+import org.team9432.Robot
 import org.team9432.lib.RobotPeriodicManager
 import org.team9432.lib.resource.Resource
 import org.team9432.lib.util.simSwitch
@@ -14,6 +15,8 @@ object Shooter: Resource("Shooter") {
 
     var note = false
 
+    var GameState = 0.0
+
     enum class State(val getSpeed: () -> DoubleArray) {
         SHOOT({ doubleArrayOf(6500.0, 6500.0) }),
         INTAKE({ doubleArrayOf(-1700.0, -1700.0) }),
@@ -26,7 +29,11 @@ object Shooter: Resource("Shooter") {
     }
 
     private fun trackState() {
-        io.setSpeeds(state.getSpeed())
+        if(Robot.isTest){
+            io.setSpeeds(doubleArrayOf(GameState,GameState))
+        }else{
+            io.setSpeeds(state.getSpeed())
+        }
     }
 
     override fun akitUpdate() {
